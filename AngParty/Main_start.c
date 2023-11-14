@@ -23,25 +23,13 @@ void main_start() {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     gotoxy(2, 2);
 
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-
-
+   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
     printf("                                                                                                                                                                                                                   \n");
     printf("                                                                                     zZZZZZz   ZZZ ZZZ   ZZZ  ZZZ ZZZZZZZZZ ZZZ   ZZZZZZ  ZZZ                                                                      \n");
     printf("                                                                                    ZZZZZZZZZ  ZZZ ZZZ   ZZZ  ZZZ ZZZZZZZZZ ZZZ ZZZZZZZZZ ZZZ                                                                      \n");
     printf("                                         ZZZZZZZZZZZZ                               ZZ     ZZ  ZZZZZZZZZZZZZ  ZZZ ZZ        ZZZ ZZ     ZZ ZZZ                                                                      \n");
     printf("                                      ZZZZ          Z                               ZZZZZZZZZ  ZZZ ZZZ   ZZZ  ZZZ ZZ        ZZZ ZZZZZZZZZ ZZZ                                                                      \n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
     printf("                                      ZZ ZZZZZZZZZZZZZZZZZZZ           zZZZZZ        zZZZZZz   ZZZ ZZZ   ZZZZZZZZ ZZZZZZZZZZZZZ  ZZZZZZZ  ZZZ                                                                      \n");
     printf("                                      ZZ  ZZZ        Z     ZZZZZZ ZZZZZZ    Z        zZZZZZZZZZZZ  ZZZ   ZZZ  ZZZ ZZ        ZZZ           ZZZ                                                                      \n");
     printf("                                    ZZZZ  ZZ        ZZ          ZZZZZ       Z       ZZZ       ZZZZ ZZZ   ZZZ  ZZZ ZZ        ZZZ           ZZZ                                                                      \n");
@@ -49,6 +37,7 @@ void main_start() {
     printf("                               ZZZ                                          Zz       ZZZZZZZZZZZ   ZZZZZZZZZ  ZZZ ZZZZZZZZZ ZZZ ZZZZZZZZZZ ZZ                                                                      \n");
     printf("                     ZZZZZZZZZZZ                                            ZZ                                                                                                                                     \n");
     printf("                     Z                                                      ZZ                                                                                                                                     \n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     printf("                     Z                                                      ZZZ                                                                                                                                    \n");
     printf("                     Z                                                        ZZ              ZZZZZZZZZZZZZZZ ZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ   ZZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZ             \n");
     printf("                    ZZZ                                      ZZZ            ZZZZZ            Z              Z Z     Z                      Z                 Z    Z  Z             ZZZ     Z Z      Z              \n");
@@ -56,17 +45,20 @@ void main_start() {
     printf("            ZZZZZZ     Z               ZZZ       ZZ ZZ ZZ                    ZZZZZ         ZZZZZZZZZZZZ    Z Z     Z   ZZZZZZZZZZZZZZZZ ZZZZ     ZZZZZ     ZZ    Z  Z   ZZZZZZZZZZZ Z      ZZ      Z               \n");
     printf("          ZZZ          ZZ                         ZZZ ZZ                   ZZZ   ZZ                   Z    Z Z     Z                     ZZ Z    Z  Z    ZZZ    Z  Z    ZZ          Z     Z Z     Z                \n");
     printf("         ZZ            ZZZZZZZ                                                    Z         ZZZZZZZZZB    Z Z     ZzzzzzzzzzzzzzzzzzzzzzzZ  Z    Z  Z    Z Z    ZZZZ   ZZ           Z     Z Z     Z                \n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
     printf("         Z             Z                                                   ZZZZZZZZ        Z              Z Z     ZzzzzzzzzzzzzzzzzzzzzzzZZ Z    Z  Z    Z Z       Z    ZZZZZZZZZ  ZZ    Z Z      Z                \n");
     printf("         Z             Z   ZZZ                                                   ZZ        Z              Z Z    Z                      ZZ Z    Z  Z    Z Z       Z             Z  Z     Z Z     Z                 \n");
     printf("         Z             ZZZZZ                                                     ZZ       Z     ZZZZZZZZZZZZ     ZZZZZZZZZZZZZZZZZZZZZZZZ  Z    Z  Z    Z Z     ZZZ    zZZZZZZZZZ ZZ    EZ ZZZZZZZ                 \n");
     printf("         ZZ             Z    ZZ                                             ZZZZZZ        Z     Z          Z     Z                      Z Z    Z  Z    Z Z     Z Z    Z          ZZ     Z                          \n");
     printf("          ZZ            ZZ ZZ                                            ZZZZZZZZZ        Z     Z          Z    ZZ    ZzzzzzzzzzzzZ    ZZ Z    Z  Z    Z Z    Z  Z    Z          Z     Z  ZZZZZ                    \n");
     printf("           ZZ            ZZ                 ZZZZZZZ                   ZZZ        ZZ      Z     ZZZZZZZZZZ Z     Z     ZzzzzzzzzzzzZ    ZZZZ   ZZZZZ   ZZZ     Z Z    ZZZZZZZZZZ ZZ    ZZ Z    ZZ                   \n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
     printf("            ZZ            ZZZ           ZZZZ       ZZ                ZZ           ZZ     Z              Z Z     Z                      Z                Z    Z ZZ              ZZZ    Z Z      Z                   \n");
     printf("              ZZZZ                     ZZ           ZZ                            ZZ    Z               ZZ     ZZ                      Z                 Z    Z Z               ZZ    ZZ Z     Z                   \n");
     printf("                 ZZZZZ                ZZ             ZZ                           ZZ    ZZZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZZZZZ ZZZZ5   ZZZZZ                     \n");
     printf("                     ZZZZZZ                           Z                          ZZ                                                                                                                                \n");
     printf("                          ZZZZZZZZZ                   Z       ZZZZZ             ZZ                                                                                                                                 \n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     printf("                              ZZZZZZZ                ZZZZZZZZZZ   ZZZ       ZZZZZ                                                                                                                                  \n");
     printf("                                    ZZZ             ZZ              ZZZZZZZZZ                                                                                                                                      \n");
     printf("                                      ZZZ       zZZZz                                                                                                                                                              \n");
@@ -74,7 +66,7 @@ void main_start() {
     printf("                                                                                                                                                                                                                   \n");
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    const char* startText = ">> Press Any Key to start";
+    const char* startText = ">> Press Any Key to start !";
     int textLength = strlen(startText);
     int blink = 0;
 
