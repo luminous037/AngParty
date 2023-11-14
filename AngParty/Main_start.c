@@ -7,6 +7,7 @@
 #include <mmsystem.h>
 #include<conio.h>
 
+
 #pragma comment(lib,"winmm.lib")
 
 #define width 220
@@ -17,10 +18,23 @@
 
 
 
-
 void main_start() {
 
-    PlaySound(TEXT("메인화면bgm.wav"), NULL, SND_ASYNC | SND_LOOP);  //노래 재생
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    gotoxy(2, 2);
+
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
 
 
     printf("                                                                                                                                                                                                                   \n");
@@ -36,7 +50,7 @@ void main_start() {
     printf("                     ZZZZZZZZZZZ                                            ZZ                                                                                                                                     \n");
     printf("                     Z                                                      ZZ                                                                                                                                     \n");
     printf("                     Z                                                      ZZZ                                                                                                                                    \n");
-    printf("                     Z                                                        ZZ              ZZZZZZZZZZZZZZZ ZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZj   ZZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZ             \n");
+    printf("                     Z                                                        ZZ              ZZZZZZZZZZZZZZZ ZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ   ZZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZ             \n");
     printf("                    ZZZ                                      ZZZ            ZZZZZ            Z              Z Z     Z                      Z                 Z    Z  Z             ZZZ     Z Z      Z              \n");
     printf("                 ZZZ  ZZ               ZZZ                   ZZZ         ZZZ     Z          Z               ZZ     Z                      Z                 Z    Z  Z              Z Z     Z Z     Z               \n");
     printf("            ZZZZZZ     Z               ZZZ       ZZ ZZ ZZ                    ZZZZZ         ZZZZZZZZZZZZ    Z Z     Z   ZZZZZZZZZZZZZZZZ ZZZZ     ZZZZZ     ZZ    Z  Z   ZZZZZZZZZZZ Z      ZZ      Z               \n");
@@ -59,8 +73,7 @@ void main_start() {
     printf("                                        ZZZZZZZZZZ                                                                                                                                                                 \n");
     printf("                                                                                                                                                                                                                   \n");
 
-
-    gotoxy(width / 2 - 60, height / 2 + 00);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
     const char* startText = ">> Press Any Key to start";
     int textLength = strlen(startText);
     int blink = 0;
@@ -73,7 +86,7 @@ void main_start() {
                 break;
             }
         }
-        gotoxy(width / 2 - 60, height / 2 + 00);
+        gotoxy(width / 2 - 60, 60);
         if (blink) {
             printf("%.*s", textLength, startText);
         }
@@ -83,8 +96,8 @@ void main_start() {
             }
         }
         blink = !blink;
-        Sleep(500); // 500 milliseconds
-        gotoxy(width / 2 - 60, height / 2 + 00);
+        Sleep(500);
+        gotoxy(width / 2 - 60, 60);
     }
 
     // Clear the message after a key is pressed
