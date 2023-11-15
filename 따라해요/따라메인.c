@@ -132,7 +132,7 @@ void route1(){ //4박자
 		}
 		index++;
 		if (i == 3) return 0;
-		else Sleep(800); //탁 -> 탁 사이 시간
+		else Sleep(780); //탁 -> 탁 사이 시간
 	}
 }
 
@@ -165,7 +165,7 @@ void Showbit() {
 		route1();
 		Sleep(3500);
 		route2();
-		Sleep(2900);
+		Sleep(2850);
 	}
 	return;
 }
