@@ -181,10 +181,10 @@ void main_menu() {
 					break;
 				}
 				//if(_kbhit==13){ //엔터 입력 시
-				//if(n==1){
+				//if(num==1){
 				//Play_party(); //앙손파티
 			        //}
-				//else if(n==2){
+				//else if(num==2){
 				//Play_follow(); //따라앙냥
 			        //}
 			   //}
