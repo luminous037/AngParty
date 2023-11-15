@@ -1,8 +1,24 @@
-void route1(){ //4박자
+#include <stdio.h>
+#include <stdlib.h>
+#include <Windows.h>
+#include <mmsystem.h>
+#include <time.h>
+
+#pragma comment(lib,"winmm.lib")
+
+void Play_Music() {
+	PlaySound(TEXT("따라해요 본겜.wav"), NULL, SND_ASYNC);  //노래 재생
+	return;
+}
+
+float t[10];
+int order[10];
+
+void route1() { //4박자
 	int num;
 	int index = 0;
 	for (int i = 0; i < 4; i++) {
-		num = rand()%2; // 북 or 챙
+		num = rand() % 2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
 			printf("챙 쳐 ");
@@ -45,11 +61,19 @@ void route2() { //5박자
 
 void Showbit() {
 	for (int i = 0; i < 4; i++) {
-		if(i==0) Sleep(1000);
+		if (i == 0) Sleep(1000);
 		route1();
 		Sleep(3500);
 		route2();
 		Sleep(3000);
 	}
 	return;
+}
+
+
+int main() {
+	Play_Music();
+	int num;
+	int index = 0;
+	Showbit();
 }
