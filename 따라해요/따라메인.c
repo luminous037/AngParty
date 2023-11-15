@@ -1,14 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <Windows.h>
 #include <mmsystem.h>
 #include <conio.h>
 #include <Digitalv.h>
 #include <time.h>
 
-// 탁 탁 간격 0.7초
+// 탁 탁 간격 0.8초
 //첫 시작 1초 뒤
 //탁탁 탁 탁 탁
-//0.45 0.6 0.5 0.65
+//0.37 0.8 0.6 0.6
 
 #define BGM "따라해요 본겜.wav"
 #define SHUFFLE1 "북.wav"    //효과음 경로 지정
@@ -57,6 +58,8 @@ int Key_input(int n) {  //입력 받은 키
 //}
 int sum = 0;
 int life = 1;
+float t[10];
+int order[10];
 int score(int score)
 {
 	
@@ -88,7 +91,7 @@ int score(int score)
 }
 
 
-int judge(float t) {
+void judge(float t) {
 	if (t < 0.7 && t>0.65) {
 		score(1);
 	}
@@ -111,29 +114,90 @@ void EnterKey() {
 	printf("북\n"); //Beep(300, 200);
 }
 
+void route1(){ //4박자
+	int num;
+	int index = 0;
+	for (int i = 0; i < 4; i++) {
+		num = rand()%2; // 북 or 챙
+		srand(time(NULL));
+		if (num == 0) {  //0이면 챙 제시
+			printf("챙 쳐 ");
+			t[index] = time(NULL);
+			order[index] = num;
+		}
+		else if (num == 1) { //1 이면 북 제시
+			printf("북 쳐 ");
+			t[index] = time(NULL);
+			order[index] = num;
+		}
+		index++;
+		if (i == 3) return 0;
+		else Sleep(800); //탁 -> 탁 사이 시간
+	}
+}
+
+void route2() { //5박자
+	int num;
+	int index = 0;
+	for (int i = 0; i < 5; i++) {
+		num = rand() % 2; // 북 or 챙
+		srand(time(NULL));
+		if (num == 0) {  //0이면 챙 제시
+			printf("챙 쳐 ");
+			t[index] = time(NULL);
+			order[index] = num;
+		}
+		else if (num == 1) { //1 이면 북 제시
+			printf("북 쳐 ");
+			t[index] = time(NULL);
+			order[index] = num;
+		}
+		index++;
+		if (i == 0) Sleep(370);
+		else if (i == 4) Sleep(860);
+		else Sleep(500);
+	}
+}
+
+void Showbit() {
+	for (int i = 0; i < 4; i++) {
+		if(i==0) Sleep(1000);
+		route1();
+		Sleep(3500);
+		route2();
+		Sleep(3000);
+	}
+	return;
+}
+
 
 int main() {
 	Play_Music();
 	int n;
-	float t = time(NULL);
-	t = 5.2;
+	int num;
+	int index = 0;
+	Showbit();
+	//t = time(NULL);
+	//t = 5.2;
 	while (1) {
 		n = Key_input(kbhit());
 
 		if (n == 1) {
 			SpaceKey();
-			judge(5.88-t);
+			judge(5.88-t[index]);
+			index++;
 		}
 
 		else if (n == 2) {
 			EnterKey();
-			judge(5.5 - t);
+			judge(5.5 - t[index]);
+			index++;
 		}
 
 		else {
 			Sleep(100);
 			int n = time(NULL);
-			printf("%d",n-t);
+			//printf("%d",n-t);
 			return 0;
 		}
 	}
