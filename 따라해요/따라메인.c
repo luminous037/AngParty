@@ -154,14 +154,14 @@ void route2() { //5박자
 		}
 		index++;
 		if (i == 0) Sleep(370);
-		else if (i == 4) Sleep(860);
-		else Sleep(500);
+		else if (i == 4) Sleep(880);
+		else Sleep(520);
 	}
 }
 
 void Showbit() {
 	for (int i = 0; i < 4; i++) {
-		if(i==0) Sleep(1000);
+		if(i==0) Sleep(1500);
 		route1();
 		Sleep(3500);
 		route2();
