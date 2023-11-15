@@ -20,6 +20,8 @@
 
 void main_menu() {
 
+	//int num=1; //1번 2번 선택 사항항
+
 	gotoxy(2, 2);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -117,6 +119,7 @@ void main_menu() {
 				{
 				case 72: //상
 
+					//num=1;
 
 
 					gotoxy(17, 45);
@@ -146,6 +149,10 @@ void main_menu() {
 					printf("■■\n");
 					break;
 				case 80: //하
+
+					//num=2;
+
+
 					gotoxy(17, 28);
 					printf("\n");
 					printf("  \n");
@@ -173,6 +180,14 @@ void main_menu() {
 				default:
 					break;
 				}
+				//if(_kbhit==13){ //엔터 입력 시
+				//if(n==1){
+				//Play_party(); //앙손파티
+			        //}
+				//else if(n==2){
+				//Play_follow(); //따라앙냥
+			        //}
+			   //}
 			}
 			
 		}
