@@ -154,7 +154,7 @@ void route2() { //5박자
 		}
 		index++;
 		if (i == 0) Sleep(370);
-		else if (i == 4) Sleep(880);
+		else if (i == 4) Sleep(900);
 		else Sleep(520);
 	}
 }
@@ -165,7 +165,7 @@ void Showbit() {
 		route1();
 		Sleep(3500);
 		route2();
-		Sleep(3000);
+		Sleep(2900);
 	}
 	return;
 }
