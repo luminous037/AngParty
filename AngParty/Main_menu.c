@@ -103,7 +103,7 @@ void main_menu() {
 	printf("■■■■\n");
 	printf("■■■\n");
 	printf("■■\n");
-	int return_n = 0;
+
 	while (1) //키보드 움직임
 	{
 		int key;
@@ -116,7 +116,10 @@ void main_menu() {
 				switch (key)
 				{
 				case 72: //상
-					gotoxy(17, 41 + return_n);
+
+
+
+					gotoxy(17, 45);
 					
 					printf("\n");
 					printf("  \n");
@@ -128,9 +131,9 @@ void main_menu() {
 					printf("    \n");
 					printf("   \n");
 					printf("  \n");
-					return_n -= 2;
-					if (return_n < 0) return_n = 0;
-					gotoxy(17, 28 + return_n);
+					
+					
+					gotoxy(17, 28 );
 					printf("\n");
 					printf("■■\n");
 					printf("■■■\n");
@@ -143,7 +146,7 @@ void main_menu() {
 					printf("■■\n");
 					break;
 				case 80: //하
-					gotoxy(17, 28 +  return_n);
+					gotoxy(17, 28);
 					printf("\n");
 					printf("  \n");
 					printf("   \n");
@@ -154,9 +157,8 @@ void main_menu() {
 					printf("    \n");
 					printf("   \n");
 					printf("  \n");
-					return_n += 2;
-					if (return_n > 6) return_n = 6;
-					gotoxy(17, 41 + return_n);
+					
+					gotoxy(17, 45);
 					printf("\n");
 					printf("■■\n");
 					printf("■■■\n");
@@ -176,3 +178,4 @@ void main_menu() {
 		}
 	}
 }
+
