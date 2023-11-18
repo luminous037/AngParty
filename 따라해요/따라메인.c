@@ -3,24 +3,11 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include <conio.h>
-#include <Digitalv.h>
 #include <time.h>
-
-// 탁 탁 간격 0.8초
-//첫 시작 1초 뒤
-//탁탁 탁 탁 탁
-//0.37 0.8 0.6 0.6
-
-#define BGM "따라해요 본겜.wav"
-#define SHUFFLE1 "북.wav"    //효과음 경로 지정
-#define SHUFFLE2 "챙.wav"    //효과음 경로 지정
 
 #pragma comment(lib,"winmm.lib")
 #define SPACE 32 //스페이스 키 값
 #define ENTER 13//엔터 키 값
-
-
-
 
 void Play_Music() {
 	PlaySound(TEXT("따라해요 본겜.wav"), NULL, SND_ASYNC);  //노래 재생
@@ -34,32 +21,11 @@ int Key_input(int n) {  //입력 받은 키
 		}
 	}
 
-
-//MCI_OPEN_PARMS openBgm;
-//MCI_PLAY_PARMS playBgm;
-//MCI_OPEN_PARMS openShuffleSound;
-//MCI_PLAY_PARMS playShuffleSound;
-//
-//int dwID;
-//
-//void playingBgm(void) {
-//	openBgm.lpstrElementName = "따라해요 본겜.wav";            //파일 오픈
-//	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&openBgm);
-//	dwID = openBgm.wDeviceID;
-//	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY, (DWORD)(LPVOID)&openBgm);    //음악 한 번 재생
-//}
-//void playingShuffleSound(void) {
-//	openShuffleSound.lpstrElementName = SHUFFLE1;    //파일 오픈
-//	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&openShuffleSound);
-//	dwID = openShuffleSound.wDeviceID;
-//	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY, (DWORD)(LPVOID)&openShuffleSound);    //음악을 한 번 재생
-//	Sleep(1800);    //효과음이 재생될 때까지 정지했다가
-//	mciSendCommand(dwID, MCI_SEEK, MCI_SEEK_TO_START, (DWORD)(LPVOID)NULL);    //음원 재생 위치를 처음으로 초기화
-//}
 int sum = 0;
 int life = 1;
-float t[10];
+float t[10]; //입력된 북or챙 출력된 시간 저장
 int order[10];
+
 int score(int score)
 {
 	
@@ -90,19 +56,17 @@ int score(int score)
 	printf("Score = %d\n", sum);
 }
 
-
-void judge(float t) {
-	if (t < 0.7 && t>0.65) {
+void judge(float t) { //판정 (현재 임의로 정함)
+	if (t > 2.8 && t < 3) {
 		score(1);
 	}
-	else if ((t <= 0.65 && t>=0.6) && (t >= 0.7 && t <= 0.75)) {
+	else if ((t >= 2.3 && t <= 2.8) && (t >= 3 && t <= 3.5)) {
 		score(2);
 	}
 	else {
 		score(3);
 	}
 }
-
 
 void SpaceKey() {
 	//PlaySound(TEXT("챙.wav"), NULL, SND_ASYNC);  //노래 재생 싱크 안맞음
@@ -121,19 +85,20 @@ void route1(){ //4박자
 		num = rand()%2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
-			printf("챙 쳐 ");
+			printf("심벌즈 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
 			t[index] = time(NULL);
-			order[index] = num;
+			order[index] =SPACE;
 		}
 		else if (num == 1) { //1 이면 북 제시
-			printf("북 쳐 ");
+			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
 			t[index] = time(NULL);
-			order[index] = num;
+			order[index] = ENTER;
 		}
 		index++;
-		if (i == 3) return 0;
+		if (i == 3) break;
 		else Sleep(780); //탁 -> 탁 사이 시간
 	}
+
 }
 
 void route2() { //5박자
@@ -143,14 +108,14 @@ void route2() { //5박자
 		num = rand() % 2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
-			printf("챙 쳐 ");
+			printf("심벌즈  "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
 			t[index] = time(NULL);
-			order[index] = num;
+			order[index] = SPACE;
 		}
 		else if (num == 1) { //1 이면 북 제시
-			printf("북 쳐 ");
+			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
 			t[index] = time(NULL);
-			order[index] = num;
+			order[index] = ENTER;
 		}
 		index++;
 		if (i == 0) Sleep(370);
@@ -159,17 +124,45 @@ void route2() { //5박자
 	}
 }
 
+void PlayerKey() {
+	int n;
+	int num;
+	int index = 0;
+	for (int i = 0; i < 4;i++) {
+		if (time(NULL) - t[index] > 3) printf("GameOver");
+		n = Key_input(_kbhit());
+
+		if (n == order[index]) {
+			SpaceKey();
+			judge(time(NULL) - t[index]);
+			index++;
+		}
+
+		else if (n == order[index]) {
+			EnterKey();
+			judge(time(NULL) - t[index]);
+			index++;
+		}
+
+		else {
+			life--;
+			if (life < 0) printf("Gameover");
+		}
+	}
+}
+
 void Showbit() {
 	for (int i = 0; i < 4; i++) {
 		if(i==0) Sleep(1500);
 		route1();
+		//PlayerKey();
 		Sleep(3500);
 		route2();
+		//PlayerKey();
 		Sleep(2850);
 	}
 	return;
 }
-
 
 int main() {
 	Play_Music();
@@ -177,27 +170,26 @@ int main() {
 	int num;
 	int index = 0;
 	Showbit();
-	//t = time(NULL);
 	//t = 5.2;
 	while (1) {
 		n = Key_input(kbhit());
 
 		if (n == 1) {
 			SpaceKey();
-			judge(5.88-t[index]);
+			judge(time(NULL) - t[index]);
 			index++;
 		}
 
 		else if (n == 2) {
 			EnterKey();
-			judge(5.5 - t[index]);
+			judge(time(NULL) - t[index]);
 			index++;
 		}
 
 		else {
 			Sleep(100);
 			int n = time(NULL);
-			//printf("%d",n-t);
+			printf("%d",n-t[index]);
 			return 0;
 		}
 	}
