@@ -65,6 +65,7 @@ void clearInputBuffer() {
 
 int main() {
 
+
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -77,7 +78,11 @@ int main() {
 
     main_start();//메인화면
 
-    main_menu();
+    int n= main_menu();
+
+    if (n == 1) return 0;
+
+    else if (n == 2) main();
 
     return 0;
 
