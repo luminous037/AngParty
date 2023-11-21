@@ -118,9 +118,8 @@ void main_menu() {
 				
 
 				SetScreen();
-				exitscreen();
-
-				if (exitscreen() == 1) {
+				int n=exitscreen();
+				if (n == 1) {
 					PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_LOOP);
 					gotoxy(0, 0);
 					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
@@ -128,11 +127,10 @@ void main_menu() {
 					Sleep(1300);
 					return;
 				}
-
-				else if (exitscreen() == 2) {
+				else if(n==2){
 					gotoxy(0, 0);
 					main();
-				}
+			}
 
 			}
 
