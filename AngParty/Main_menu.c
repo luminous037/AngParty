@@ -115,22 +115,22 @@ void main_menu() {
 			if (key == 27) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 				gotoxy(0, 0);
-				
+
 
 				SetScreen();
-				int n=exitscreen();
+				int n = exitscreen();
 				if (n == 1) {
-					PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_LOOP);
+					PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_ASYNC);
 					gotoxy(0, 0);
 					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
 					SetScreen();
 					Sleep(1300);
-					return;
+					return 1;
 				}
-				else if(n==2){
+				else if (n == 2) {
 					gotoxy(0, 0);
-					main();
-			}
+					return 2;
+				}
 
 			}
 
@@ -172,7 +172,7 @@ void main_menu() {
 				case 80: //하
 
 					PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC | SND_LOOP);
-	
+
 					gotoxy(17, 28);
 					printf("\n");
 					printf("  \n");
