@@ -7,6 +7,7 @@
 #include <mmsystem.h>
 #include<conio.h>
 
+
 #pragma comment(lib,"winmm.lib")
 
 
@@ -20,8 +21,6 @@
 
 void main_menu() {
 
-	//int num=1; //1번 2번 선택 사항항
-
 	gotoxy(2, 2);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -29,11 +28,11 @@ void main_menu() {
 
 	SetScreen();
 
-	
+
 	gotoxy(2, 2);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 
-	printf("\n");
+
 	printf("<ESC> to exit");
 	printf("\n");
 	printf("\n");
@@ -64,34 +63,34 @@ void main_menu() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(17, 26);
 	printf("\n");
-	printf("                        ________________________________________________________________________________________________________________________________________________________________________________________________________ \n");
-	printf("                       |                                                                                                                                                                                                        |\n");
-	printf("                       |   ZZZZZ ZZZZZZZZZ ZZZZZZZZZ ZZZZZ    ZZZ   ZZZ ZZZ   ZZZZZZZZZZZ    ZZZZZ       ZZZZZZ   ZZZZ  ZZZZ ZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ         ZZ           ZZ          ♪                                |\n");
-	printf("                       |   ZZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ  ZZZZZZZZZZZ ZZZ ZZZZZZZZZZZZZZZ  ZZZZZ     ZZZZZZZZZZ ZZZZ  ZZZZ ZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ        ZZZZZZZZZZZZZZ ZZ    ♬                                     |\n");
-	printf("                       |   ZZZZZ ZZZZ ZZZZ ZZZZZZZZZ ZZZZZ  ZZZZZZZZZZZ ZZZ ZZZZZZZZZZZZZZZ  ZZZZZ     ZZZZ  ZZZZ ZZZZZ ZZZZ ZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ       Z                 Z   ________                              |\n");
-	printf("                       |   ZZZZ  ZZZZ ZZZZ      ZZZZ ZZZZZ   zzzzz  ZZZ ZZZ ZZZZZ      ZZZZ  ZZZZZ     ZZZZ  ZZZZ ZZZZZ ZZZZZZZZZZZZZZZ ZZZZZ     ZZZZZ ZZZZZ      Z                   ZZZ        ZZZZ___                       |\n");
-	printf("                       |   ZZZZ  ZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZ ZZZZZZZZZZZZZZZ  ZZZZZ      ZZZZZZZZ  ZZZZ  ZZZZZZZZZZZZZZZ ZZZZZZZZ ZZZZZZ ZZZZZ      Z   ■      ■      Z                 Z                        |\n");
-	printf("                       |   ZZZZ  ZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZZ ZZZ ZZZZZZZ ZZZZZZZZZZZZZZZ  ZZZZZ                      ZZZZ ZZZZZZZZZZ ZZZZZZZZ ZZZZZZ ZZZZZ      Z     w_w_w         Z                  Z                     |\n");
-	printf("                       |   ZZZZ  ZZZZ ZZZZ ZZZZZZZZZ ZZZZZZZZZZ ZZZ ZZZ ZZZ   ZZZZZZZZZZZZ   ZZZZZ      ZZZZZZZZZZZZZ   ZZZZ ZZZZZZZZZZ ZZZZZ    ZZZZZZ ZZZZZ       Z_________________Z                    Z                    |\n");
-	printf("                       |   ZZZZ  ZZZZ ZZZZ ZZZZZZ    ZZZZZ  ZZZ ZZZ ZZZ ZZZ   ZZZZZ  ZZZZZ             ZZZZZ     ZZZZZ  ZZZZ ZZZZ ZZZZZ ZZZZZ     ZZZZZ               Z                        ZZZ         Z                    |\n");
-	printf("                       |   ZZZZZ ZZZZ ZZZZ ZZZZZZZZZZZZZZZ  ZZZZZZZ ZZZ ZZZ ZZZZZZZZZZZZZZZ  zZZZz     ZZZZZzzzzzZZZZZ  ZZZZZZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ zZZZz    ♬    Z                      Z             Z                    |\n");
-	printf("                       |   ZZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZZ   ZZZZZ  ZZZ ZZZ ZZZZZZZZZZZZZZZ  ZZZZZ      ZZZZZZZZZZZZZ   ZZZZZZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ          ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ                    |\n");
-	printf("                       |________________________________________________________________________________________________________________________________________________________________________________________________________|\n");
-	printf("                                                                                                                                                                                                                                 \n");
-	printf("                                                                                                                                                                                                                                 \n");
-	printf("                                                                                                                                                                                                                                 \n");
-	printf("                        ________________________________________________________________________________________________________________________________________________________________________________________________________ \n");
-	printf("                       |                                                                                                                                                                                                        |\n");
-	printf("                       |    ZZZZZZ   ZZZ  ZZZZZ   ZZZZZ   zZZZZZZ  ZZZZ  ZZZZZZZ  ZZZZ          ZZZZZ     ZZZZZZZZZ ZZZZ  ZZZZZZZZ ZZZZ      ZZZZZ ZZZ  ZZZ     ZZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ         ZZZZZZZZZZ    |\n");
-	printf("                       |  ZZZZZZZZZ  ZZZ  ZZZZZ   ZZZZZZzZZZZZZZZZ ZZZZ ZZZZZZZZZ ZZZZ         ZZZZZZZ    ZZZZZZZZZ ZZZZ       ZZZ ZZZZZZ    ZZZZZ ZZZ  ZZZ     ZZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ        ZZZZZZ   ZZ    |\n");
-	printf("                       |  ZZZZ  ZZZZ ZZZZ ZZZZZZZ ZZZZZZzZZZZ ZZZZ ZZZZ ZZZZ ZZZZ ZZZZ       ZZZZZZZZZZZ  ZZZZZZZZZ ZZZZ  ZZZZZZZZ ZZZZZZ    ZZZ   ZZZZZZZZ    ZZZZZZZZ     ZZZ  ZZZ ZZZZ ZZZZZZZZZ ZZZZZ        Z        ZZ    |\n");
-	printf("                       |  ZZZZZZZZZ  ZZZ  ZZZZZZZ ZZZZZZ ZZZZ ZZZZ ZZZZ ZZZZ ZZZZ ZZZZ     ZZZZZZ   ZZZZZ     ZZZZZ ZZZZZ ZZZZ     ZZZZ      ZZZZZ ZZZZZZZZ  ZZZZZZZZZZZZ   ZZZ  ZZZ ZZZZZZZZZZ     ZZZZZ        Z        ZZ    |\n");
-	printf("                       |    ZZZZZZ   ZZZ                 ZZZZ ZZZZ ZZZZ ZZZZZZZZZ ZZZZ          ZZZZZ         ZZZZZ ZZZZZ ZZZZZZZZ ZZZZ      ZZZZZ ZZZ  ZZZ ZZZZZZZZZZZZZZ  ZZZ  ZZZ ZZZZZZZZZZZZZZ ZZZZZ        Z        ZZ    |\n");
-	printf("                       |   ZZZZZZZZZZZZ    ZZZZZZZZZZZZ  ZZZZ ZZZZ ZZZZ  ZZZZZZZ  ZZZZ     ZZZZZZZZZZZZZZ    ZZZZZ  ZZZZ                           ZZZ  ZZZ ZZZZZ    ZZZZZ  ZZZ  ZZZ ZZZZZZZZZZZZZZ ZZZZZ        Z       ZZZ    |\n");
-	printf("                       |  ZZZZ      ZZZZ  ZZZZZ    ZZZZZ ZZZZ ZZZZ ZZZZ           ZZZZ     ZZZ             ZZZZZZZ  ZZZZ  ZZZZZZZZZZZZZZ     ZZZZ                           ZZZ  ZZZ ZZZZ ZZZZZ     ZZZZZ        Z     ZZZZZ    |\n");
-	printf("                       |  ZZZZZZZZZZZZZZ  ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZ ZZZZZZZZZ ZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZ   ZZZZ  ZZZZZZZZZZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZ ZZZZZZZZZ ZZZZZ    ZZZZZ     ZZZZ     |\n");
-	printf("                       |   ZZZZZZZZZZZZ    ZZZZZZZZZZZZ   ZZZZZZZ  ZZZZ ZZZZZZZZZ ZZZZ     ZZZZZZZZZZZZZZ ZZZZZ     ZZZZ           ZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ    zZZZ               |\n");
-	printf("                       |________________________________________________________________________________________________________________________________________________________________________________________________________|\n");
+	printf("                   ________________________________________________________________________________________________________________________________________________________________________________________________________ \n");
+	printf("                  |                                                                                                                                                                                   _______              |\n");
+	printf("                  |   ZZZZZ ZZZZZZZZZ ZZZZZZZZZ ZZZZZ    ZZZ   ZZZ ZZZ   ZZZZZZZZZZZ    ZZZZZ       ZZZZZZ   ZZZZ  ZZZZ ZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ         ZZ           ZZ          ♪          Z       Z             |\n");
+	printf("                  |   ZZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ  ZZZZZZZZZZZ ZZZ ZZZZZZZZZZZZZZZ  ZZZZZ     ZZZZZZZZZZ ZZZZ  ZZZZ ZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ        ZZZZZZZZZZZZZZ ZZ    ♬                ZZZZZ    Z           |\n");
+	printf("                  |   ZZZZZ ZZZZ ZZZZ ZZZZZZZZZ ZZZZZ  ZZZZZZZZZZZ ZZZ ZZZZZZZZZZZZZZZ  ZZZZZ     ZZZZ  ZZZZ ZZZZZ ZZZZ ZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ       Z                 Z   ________                Z   Z         |\n");
+	printf("                  |   ZZZZ  ZZZZ ZZZZ      ZZZZ ZZZZZ   zzzzz  ZZZ ZZZ ZZZZZ      ZZZZ  ZZZZZ     ZZZZ  ZZZZ ZZZZZ ZZZZZZZZZZZZZZZ ZZZZZ     ZZZZZ ZZZZZ      Z                   ZZZ        ZZZZ___          Z   Z        |\n");
+	printf("                  |   ZZZZ  ZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZ ZZZZZZZZZZZZZZZ  ZZZZZ      ZZZZZZZZ  ZZZZ  ZZZZZZZZZZZZZZZ ZZZZZZZZ ZZZZZZ ZZZZZ      Z   ■      ■        Z               Z           Z   Z        |\n");
+	printf("                  |   ZZZZ  ZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZZ ZZZ ZZZZZZZ ZZZZZZZZZZZZZZZ  ZZZZZ                      ZZZZ ZZZZZZZZZZ ZZZZZZZZ ZZZZZZ ZZZZZ      Z     w_w_w         Z                  Z      Z    Z         |\n");
+	printf("                  |   ZZZZ  ZZZZ ZZZZ ZZZZZZZZZ ZZZZZZZZZZ ZZZ ZZZ ZZZ   ZZZZZZZZZZZZ   ZZZZZ      ZZZZZZZZZZZZZ   ZZZZ ZZZZZZZZZZ ZZZZZ    ZZZZZZ ZZZZZ       Z_________________Z                    ZZZZZZ    Z          |\n");
+	printf("                  |   ZZZZ  ZZZZ ZZZZ ZZZZZZ    ZZZZZ  ZZZ ZZZ ZZZ ZZZ   ZZZZZ  ZZZZZ             ZZZZZ     ZZZZZ  ZZZZ ZZZZ ZZZZZ ZZZZZ     ZZZZZ               Z                        ZZZ         Z_______ZZ           |\n");
+	printf("                  |   ZZZZZ ZZZZ ZZZZ ZZZZZZZZZZZZZZZ  ZZZZZZZ ZZZ ZZZ ZZZZZZZZZZZZZZZ  zZZZz     ZZZZZzzzzzZZZZZ  ZZZZZZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ zZZZz    ♬    Z                      Z             Z                    |\n");
+	printf("                  |   ZZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZZ   ZZZZZ  ZZZ ZZZ ZZZZZZZZZZZZZZZ  ZZZZZ      ZZZZZZZZZZZZZ   ZZZZZZZZZ ZZZZZ ZZZZZZZZZ ZZZZZ ZZZZZ          ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ                    |\n");
+	printf("                  |________________________________________________________________________________________________________________________________________________________________________________________________________|\n");
+	printf("                                                                                                                                                                                                                            \n");
+	printf("                                                                                                                                                                                                                            \n");
+	printf("                                                                                                                                                                                                                           \n");
+	printf("                   ________________________________________________________________________________________________________________________________________________________________________________________________________ \n");
+	printf("                  |                                                                                                                                                                                                        |\n");
+	printf("                  |    ZZZZZZ   ZZZ  ZZZZZ   ZZZZZ   zZZZZZZ  ZZZZ  ZZZZZZZ  ZZZZ          ZZZZZ     ZZZZZZZZZ ZZZZ  ZZZZZZZZ ZZZZ      ZZZZZ ZZZ  ZZZ     ZZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ         ZZZZZZZZZZ    |\n");
+	printf("                  |  ZZZZZZZZZ  ZZZ  ZZZZZ   ZZZZZZzZZZZZZZZZ ZZZZ ZZZZZZZZZ ZZZZ         ZZZZZZZ    ZZZZZZZZZ ZZZZ       ZZZ ZZZZZZ    ZZZZZ ZZZ  ZZZ     ZZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ        ZZZZZZ   ZZ    |\n");
+	printf("                  |  ZZZZ  ZZZZ ZZZZ ZZZZZZZ ZZZZZZzZZZZ ZZZZ ZZZZ ZZZZ ZZZZ ZZZZ       ZZZZZZZZZZZ  ZZZZZZZZZ ZZZZ  ZZZZZZZZ ZZZZZZ    ZZZ   ZZZZZZZZ    ZZZZZZZZ     ZZZ  ZZZ ZZZZ ZZZZZZZZZ ZZZZZ        Z        ZZ    |\n");
+	printf("                  |  ZZZZZZZZZ  ZZZ  ZZZZZZZ ZZZZZZ ZZZZ ZZZZ ZZZZ ZZZZ ZZZZ ZZZZ     ZZZZZZ   ZZZZZ     ZZZZZ ZZZZZ ZZZZ     ZZZZ      ZZZZZ ZZZZZZZZ  ZZZZZZZZZZZZ   ZZZ  ZZZ ZZZZZZZZZZ     ZZZZZ        Z        ZZ    |\n");
+	printf("                  |    ZZZZZZ   ZZZ                 ZZZZ ZZZZ ZZZZ ZZZZZZZZZ ZZZZ          ZZZZZ         ZZZZZ ZZZZZ ZZZZZZZZ ZZZZ      ZZZZZ ZZZ  ZZZ ZZZZZZZZZZZZZZ  ZZZ  ZZZ ZZZZZZZZZZZZZZ ZZZZZ        Z        ZZ    |\n");
+	printf("                  |   ZZZZZZZZZZZZ    ZZZZZZZZZZZZ  ZZZZ ZZZZ ZZZZ  ZZZZZZZ  ZZZZ     ZZZZZZZZZZZZZZ    ZZZZZ  ZZZZ                           ZZZ  ZZZ ZZZZZ    ZZZZZ  ZZZ  ZZZ ZZZZZZZZZZZZZZ ZZZZZ        Z       ZZZ    |\n");
+	printf("                  |  ZZZZ      ZZZZ  ZZZZZ    ZZZZZ ZZZZ ZZZZ ZZZZ           ZZZZ     ZZZ             ZZZZZZZ  ZZZZ  ZZZZZZZZZZZZZZ     ZZZZ                           ZZZ  ZZZ ZZZZ ZZZZZ     ZZZZZ        Z     ZZZZZ    |\n");
+	printf("                  |  ZZZZZZZZZZZZZZ  ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZ ZZZZZZZZZ ZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZ   ZZZZ  ZZZZZZZZZZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZ ZZZZZZZZZ ZZZZZ    ZZZZZ     ZZZZ     |\n");
+	printf("                  |   ZZZZZZZZZZZZ    ZZZZZZZZZZZZ   ZZZZZZZ  ZZZZ ZZZZZZZZZ ZZZZ     ZZZZZZZZZZZZZZ ZZZZZ     ZZZZ           ZZZZZ     ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZZZZZZ ZZZZZZZZZ ZZZZZ    zZZZ               |\n");
+	printf("                  |________________________________________________________________________________________________________________________________________________________________________________________________________|\n");
 
 	gotoxy(17, 28);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
@@ -112,18 +111,42 @@ void main_menu() {
 		if (_kbhit())
 		{
 			key = _getch();
+
+			if (key == 27) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(0, 0);
+				
+
+				SetScreen();
+				exitscreen();
+
+				if (exitscreen() == 1) {
+					PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_LOOP);
+					gotoxy(0, 0);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+					SetScreen();
+					Sleep(1300);
+					return;
+				}
+
+				else if (exitscreen() == 2) {
+					gotoxy(0, 0);
+					main();
+				}
+
+			}
+
 			if (key == 224 || key == 0)
 			{
 				key = _getch();
 				switch (key)
 				{
 				case 72: //상
-
-					//num=1;
+					PlaySound(TEXT("followmestart.wav"), NULL, SND_ASYNC | SND_LOOP);
 
 
 					gotoxy(17, 45);
-					
+
 					printf("\n");
 					printf("  \n");
 					printf("   \n");
@@ -134,9 +157,9 @@ void main_menu() {
 					printf("    \n");
 					printf("   \n");
 					printf("  \n");
-					
-					
-					gotoxy(17, 28 );
+
+
+					gotoxy(17, 28);
 					printf("\n");
 					printf("■■\n");
 					printf("■■■\n");
@@ -150,9 +173,8 @@ void main_menu() {
 					break;
 				case 80: //하
 
-					//num=2;
-
-
+					PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC | SND_LOOP);
+	
 					gotoxy(17, 28);
 					printf("\n");
 					printf("  \n");
@@ -164,7 +186,7 @@ void main_menu() {
 					printf("    \n");
 					printf("   \n");
 					printf("  \n");
-					
+
 					gotoxy(17, 45);
 					printf("\n");
 					printf("■■\n");
@@ -180,17 +202,10 @@ void main_menu() {
 				default:
 					break;
 				}
-				//if(_kbhit==13){ //엔터 입력 시
-				//if(num==1){
-				//Play_party(); //앙손파티
-			        //}
-				//else if(num==2){
-				//Play_follow(); //따라앙냥
-			        //}
-			   //}
+
+
 			}
-			
+
 		}
 	}
 }
-
