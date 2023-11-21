@@ -13,8 +13,8 @@
 
 #pragma comment(lib,"winmm.lib")
 
-#define width 220
-#define height 70
+#define width 230
+#define height 75
 
 
 
@@ -43,36 +43,42 @@ void CursorView(char show) { //커서 숨기는 함수 (0이면 숨김, 1이면 
     SetConsoleCursorInfo(hConsole, &ConsoleCursor);
 }
 
-void DesignStartScreen() //시작화면 설정
-{
-    for (int i = 0; i <= height; i++)
-    {
-        for (int j = 0; j <= width; j++)
-        {
-            if (i == 1 || i == height)
-                printf("=");
+void SetScreen() {
+    printf("===========================================================================================================================================================================================================================");
+    for (int i = 0; i < 66; i++) {
+        for (int j = 0; j < 221; j++) {
+            printf(" ");
 
-            else
-                printf(" ");
         }
+
     }
+    printf("\n");
+    printf("===========================================================================================================================================================================================================================");
+
 }
 
 
-
+void clearInputBuffer() {
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+}
 
 int main() {
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+    PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
 
     setConsoleSize();
 
     CursorView(0);
 
-    DesignStartScreen();
-
-    PlaySound(TEXT("메인화면bgm.wav"), NULL, SND_ASYNC | SND_LOOP);
+    SetScreen();
 
     main_start();//메인화면
 
     main_menu();
+
+    return 0;
 
 }
