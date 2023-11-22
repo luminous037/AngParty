@@ -2,13 +2,12 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <time.h>
 
-#define NOTE_DURATION 200
+#define ArrowType 4
+#define ArrowColums 4
 
-void playNote(int frequency) {
-    Beep(frequency, NOTE_DURATION);
-}
-
+//화면에 화살표 출력
 void printNote(char note, int yPos) {
     for (int i = 0; i < yPos; ++i) {
         printf("\n");
@@ -16,18 +15,22 @@ void printNote(char note, int yPos) {
     printf(" %c \n", note);
 }
 
+
 int main() {
-    char notes[] = { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
-    int frequencies[] = { 523, 587, 659, 698, 783, 880, 987 }; // C5, D5, E5, F5, G5, A5, B5
+    char notes[] = { '←', '↓', '↑', '→'}; // 출력할 화살표
 
-    int yPos = 0;
-
-    for (int i = 0; i < sizeof(notes) / sizeof(notes[0]); ++i) {
+    int yPos = 0; // 노트가 출력될 위치
+   
+    for (int i = 0; i < 120; ++i) {
+        
         system("cls"); // 콘솔 창을 지우기
+
         printNote(notes[i], yPos);
-        playNote(frequencies[i]);
-        Sleep(NOTE_DURATION);
+
+        Sleep(100);
         ++yPos; // 다음 노트는 한 칸 아래로 이동
+
+      
     }
 
     return 0;
