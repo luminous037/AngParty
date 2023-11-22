@@ -20,19 +20,17 @@
 #define SPACE 32 //스페이스 키 값
 #define ENTER 13//엔터 키 값
 
-
-
 void Play_Music() {
 	PlaySound(TEXT("따라해요 본겜.wav"), NULL, SND_ASYNC);  //노래 재생
 	return;
 }
 
-int Key_input(int n) {  //입력 받은 키
-		switch (getch()) { 
-		case SPACE: return 1; //space => 1
-		case ENTER: return 2; // enter => 2
-		}
-	}
+//int Key_input(int n) {  //입력 받은 키
+//		switch (getch()) { 
+//		case SPACE: return 1; //space => 1
+//		case ENTER: return 2; // enter => 2
+//		}
+//	}
 
 
 //MCI_OPEN_PARMS openBgm;
@@ -56,14 +54,14 @@ int Key_input(int n) {  //입력 받은 키
 //	Sleep(1800);    //효과음이 재생될 때까지 정지했다가
 //	mciSendCommand(dwID, MCI_SEEK, MCI_SEEK_TO_START, (DWORD)(LPVOID)NULL);    //음원 재생 위치를 처음으로 초기화
 //}
-int sum = 0;
+//완성되면 살펴봐야할 곳
+int sum = 0; 
 int life = 1;
-float t[10]; // 입력된 북or챙 출력된 시간 저장
-int order[10]; //순서 저장
+float t[15]; // 입력된 북or챙 출력된 시간 저장
+int order[15]; //순서 저장
 
 int score(int score)
 {
-	
 	//perfect일 경우
 	if (score==1) {
 		printf("Perfect!");
@@ -82,8 +80,8 @@ int score(int score)
 
 	//생명이 '0'미만이 된 경우
 	if (life <0) {
-		printf("Game over");
-		return 0;
+		printf("Game over\n");
+		return 0; //go Game over
 	}
 
 	//점수출력
@@ -92,7 +90,7 @@ int score(int score)
 
 
 void judge(float t) { //판정 (현재 임의로 정함)
-	if (t >= 2.8 && t <= 3.2) {
+	if (t >= 2.0 && t <= 3.5) {  //2.8 , 3.2 (2.9 기준)
 		score(1);
 	}
 	else {
@@ -101,14 +99,59 @@ void judge(float t) { //판정 (현재 임의로 정함)
 }
 
 
-void SpaceKey() {
-	PlaySound(TEXT("챙.wav"), NULL, SND_ASYNC);  //노래 재생 싱크 안맞음
-	printf(" 챙\n");
+//void SpaceKey() {
+//	PlaySound(TEXT("챙.wav"), NULL, SND_ASYNC);  //노래 재생 싱크 안맞음
+//	printf(" 챙\n");
+//}
+//
+//void EnterKey() {
+//	PlaySound(TEXT("북.wav"), NULL, SND_ASYNC);
+//	printf(" 북\n"); //Beep(300, 200);
+//}
+
+
+void PlayerKey1(int n) {
+	float input_time;  //player 입력
+	for (int i = 0; i < n; i++) {
+		int k;
+		if (time(NULL) - t[n] == 3.0) break; //쳐야하는 시간 지나면 return
+		if (time(NULL) - t[i] >= 3) { //하나 간격 못치면 다음 꺼
+			i++;
+			score(3);
+		}
+		if (_kbhit()) {
+			k = _getch();
+			if (k == order[i]) {
+				input_time = time(NULL) - t[i];
+				judge(input_time);
+			}
+			else score(3);
+			i++;
+		}
+	}
+	return;
 }
 
-void EnterKey() {
-	PlaySound(TEXT("북.wav"), NULL, SND_ASYNC);
-	printf(" 북\n"); //Beep(300, 200);
+void PlayerKey2(int n) {
+	float input_time;  //player 입력
+	for (int i = 0; i < n; i++) {
+		int k;
+		if (time(NULL) - t[n] == 3.0) break; //쳐야하는 시간 지나면 return
+		if (time(NULL) - t[i] >= 3) { //하나 간격 못치면 다음 꺼
+			i++;
+			score(3);
+		}
+		if (_kbhit()) {
+			k = _getch();
+			if (k == order[i]) {
+				input_time = time(NULL) - t[i];
+				judge(input_time);
+			}
+			else score(3);
+			i++;
+		}
+	}
+	return;
 }
 
 int route1(){ //4박자
@@ -129,22 +172,10 @@ int route1(){ //4박자
 		}
 		index++;
 		if (i == 3) break;
-		else Sleep(780); //탁 -> 탁 사이 시간
+		else Sleep(770); //탁 -> 탁 사이 시간
 	}
-	float input_time;
-	for (int i = 0; i < index; i++) {
-		if (time(NULL) - t[index] == 3.5) return;
-		if (time(NULL) - t[i] > 0.75 * 4 + 0.2) {
-			i++;
-		}
-		if (_getch() == order[i]) {
-			input_time = time(NULL) - t[i];
-			judge(input_time);
-			i++;
-		}
-		else score(3);
-	}
-	return;
+	PlayerKey1(index);
+	
 }
 
 int route2() { //5박자
@@ -171,48 +202,18 @@ int route2() { //5박자
 		}
 		else Sleep(520);
 	}
-	/*float input_time; //판정 아직 못함
-	for (int i = 0; i < index; i++) {
-		if (time(NULL) - t[index] == 3.5) return;
-		if (time(NULL) - t[i] > 0.75 * 4 + 0.2) {
-			i++;
-		}
-		if (_getch() == order[i]) {
-			input_time = time(NULL) - t[i];
-			judge(input_time);
-			i++;
-		}
-		else score(3);
-	}
-	return;*/
+	PlayerKey2(index);
 }
 
-void PlayerKey(int n) {
-	float input_time;
-	for (int i = 0; i < n; i++) {
-		if (time(NULL) - t[n] == 3.5) return;
-		if (time(NULL) - t[i] > 0.75 * 4+0.2) {
-			i++;
-		}
-		if (_kbhit() == order[i]) {
-			input_time = time(NULL) - t[i];
-			judge(input_time);
-			i++;
-		}
-		else score(3);
-	}
-	return;
-}
 
 void Showbit() {
-	int n, m;
 	for (int i = 0; i < 4; i++) {
-		if(i==0) Sleep(1500);
-		n=route1();
-		//PlayerKey(n);
-		Sleep(3500);
-		m=route2();
-		//PlayerKey(m);
+		if(i==0) Sleep(1400);
+		route1();
+		Sleep(3550);
+		printf("\n");
+		route2();
+		printf("\n");
 		Sleep(2850);
 	}
 	return;
@@ -221,32 +222,8 @@ void Showbit() {
 
 int main() {
 	Play_Music();
-	int n;
-	int num;
-	int index = 0;
 	Showbit();
-	//t = 5.2;
-	/*while (1) {
-		n = Key_input(kbhit());
+	Sleep(6800);
 
-		if (n == 1) {
-			SpaceKey();
-			judge(time(NULL) - t[index]);
-			index++;
-		}
-
-		else if (n == 2) {
-			EnterKey();
-			judge(time(NULL) - t[index]);
-			index++;
-		}
-
-		else {
-			Sleep(100);
-			int n = time(NULL);
-			printf("%d",n-t[index]);
-			return 0;
-		}
-	}*/
 	return 0;
 }
