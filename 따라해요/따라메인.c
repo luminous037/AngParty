@@ -6,59 +6,38 @@
 #include <Digitalv.h>
 #include <time.h>
 
-// 탁 탁 간격 0.8초
-//첫 시작 1초 뒤
-//탁탁 탁 탁 탁
-//0.37 0.8 0.6 0.6
-//2.9
-
-//#define BGM "따라해요 본겜.wav"
-//#define SHUFFLE1 "북.wav"    //효과음 경로 지정
-//#define SHUFFLE2 "챙.wav"    //효과음 경로 지정
 
 #pragma comment(lib,"winmm.lib")
 #define SPACE 32 //스페이스 키 값
 #define ENTER 13//엔터 키 값
+#define ERROR 0
 
 void Play_Music() {
-	PlaySound(TEXT("따라해요 본겜.wav"), NULL, SND_ASYNC);  //노래 재생
+	PlaySound(TEXT("followmestart.wav"), NULL, SND_ASYNC);  //노래 재생
 	return;
 }
 
-//int Key_input(int n) {  //입력 받은 키
-//		switch (getch()) { 
-//		case SPACE: return 1; //space => 1
-//		case ENTER: return 2; // enter => 2
-//		}
-//	}
+void Draw_sim() {
+
+}
+
+void Draw_buk() {
+
+}
+
+int Key_input(int n) {  //입력 받은 키
+		switch (getch()) { 
+		case SPACE: Draw_sim;
+		case ENTER: Draw_buk;
+		}
+	}
 
 
-//MCI_OPEN_PARMS openBgm;
-//MCI_PLAY_PARMS playBgm;
-//MCI_OPEN_PARMS openShuffleSound;
-//MCI_PLAY_PARMS playShuffleSound;
-//
-//int dwID;
-//
-//void playingBgm(void) {
-//	openBgm.lpstrElementName = "따라해요 본겜.wav";            //파일 오픈
-//	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&openBgm);
-//	dwID = openBgm.wDeviceID;
-//	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY, (DWORD)(LPVOID)&openBgm);    //음악 한 번 재생
-//}
-//void playingShuffleSound(void) {
-//	openShuffleSound.lpstrElementName = SHUFFLE1;    //파일 오픈
-//	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&openShuffleSound);
-//	dwID = openShuffleSound.wDeviceID;
-//	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY, (DWORD)(LPVOID)&openShuffleSound);    //음악을 한 번 재생
-//	Sleep(1800);    //효과음이 재생될 때까지 정지했다가
-//	mciSendCommand(dwID, MCI_SEEK, MCI_SEEK_TO_START, (DWORD)(LPVOID)NULL);    //음원 재생 위치를 처음으로 초기화
-//}
-//완성되면 살펴봐야할 곳
+
 int sum = 0; 
 int life = 1;
-float t[15]; // 입력된 북or챙 출력된 시간 저장
 int order[15]; //순서 저장
+LARGE_INTEGER frequency, end, t[15];
 
 int score(int score)
 {
@@ -66,11 +45,6 @@ int score(int score)
 	if (score==1) {
 		printf("Perfect!");
 		sum += 30;
-	}
-	//Good일 경우
-	else if (score==2) {
-		printf("Good!");
-		sum += 10;
 	}
 	//Bad일 경우
 	else if (score == 3) {
@@ -89,90 +63,141 @@ int score(int score)
 }
 
 
-void judge(float t) { //판정 (현재 임의로 정함)
-	if (t >= 2.0 && t <= 3.5) {  //2.8 , 3.2 (2.9 기준)
-		score(1);
-	}
-	else {
-		score(3);
-	}
+
+
+double check(int n) {
+	QueryPerformanceCounter(&end);
+	double time = (end.QuadPart - t[n].QuadPart) / frequency.QuadPart;
+		return time;
 }
 
-
-//void SpaceKey() {
-//	PlaySound(TEXT("챙.wav"), NULL, SND_ASYNC);  //노래 재생 싱크 안맞음
-//	printf(" 챙\n");
-//}
-//
-//void EnterKey() {
-//	PlaySound(TEXT("북.wav"), NULL, SND_ASYNC);
-//	printf(" 북\n"); //Beep(300, 200);
-//}
-
-
 void PlayerKey1(int n) {
-	float input_time;  //player 입력
-	for (int i = 0; i < n; i++) {
-		int k;
-		if (time(NULL) - t[n] == 3.0) break; //쳐야하는 시간 지나면 return
-		if (time(NULL) - t[i] >= 3) { //하나 간격 못치면 다음 꺼
-			i++;
-			score(3);
-		}
-		if (_kbhit()) {
+	double input_time=0;  //player 입력
+	int k=0;
+	int i = 0;
+	while (1) {
+		if (_kbhit()) {    // 사용자의 입력
 			k = _getch();
+			//Key_input(k);
 			if (k == order[i]) {
-				input_time = time(NULL) - t[i];
-				judge(input_time);
+				QueryPerformanceCounter(&end);
+				input_time = (end.QuadPart - t[i].QuadPart) / frequency.QuadPart;
+				if (input_time >= 2.8 && input_time <= 3.0) {  //2.8 , 3.2 (2.9 기준)
+					score(1);
+				}
+				else {
+					score(3);
+				}
 			}
-			else score(3);
+			else if(k!=order[i]){
+					score(3);
+			}
+				i++;
+		}
+		if (i >= n) break;
+		if (check(i) > 3) {
+			score(3);
 			i++;
 		}
 	}
-	return;
+	while (1) {
+		if (check(n - 1) > 3) {
+			return;
+		}
+	}
 }
 
 void PlayerKey2(int n) {
-	float input_time;  //player 입력
-	for (int i = 0; i < n; i++) {
-		int k;
-		if (time(NULL) - t[n] == 3.0) break; //쳐야하는 시간 지나면 return
-		if (time(NULL) - t[i] >= 3) { //하나 간격 못치면 다음 꺼
-			i++;
-			score(3);
-		}
-		if (_kbhit()) {
+	double input_time=0;  //player 입력
+	int k=0;
+	int i = 0;
+	while (1) {
+		if (_kbhit()) {    // 사용자의 입력
 			k = _getch();
+			//Key_input(k);
 			if (k == order[i]) {
-				input_time = time(NULL) - t[i];
-				judge(input_time);
+				QueryPerformanceCounter(&end);
+				input_time = (end.QuadPart - t[i].QuadPart) / frequency.QuadPart;
+				if ((input_time >= 2.0 && input_time <= 2.1)&&i==0) {
+					score(1);
+				}
+				else if ((input_time >= 2.0 && input_time <= 2.1) && i == 1) {
+					score(1);
+				}
+				else if ((input_time >= 2.0 && input_time <= 2.1) && (i == 2||i==3)) {
+					score(1);
+				}
+				else if ((input_time >= 2.0 && input_time <= 2.1) &&i==4) {
+					score(1);
+				}
+				else {
+					score(3);
+				}
 			}
-			else score(3);
+			else if (k != order[i]) {
+				score(3);
+			}
 			i++;
+		}
+		if (check(i) >2.7&&i==0) {
+			score(3);
+			printf("%d\n", i);
+			i++;
+		}
+		else if (check(i) >2.8 && i == 1) {
+			score(3);
+			printf("%d\n", i);
+			i++;
+		}
+		else if (check(i) > 2.9 && i == 2) {
+			score(3);
+			printf("%d\n", i);
+			i++;
+		}
+		else if (check(i) > 2.9 &&i==3) {
+			score(3);
+			printf("%d\n", i);
+			i++;
+		}
+		else if (check(i) >2.98 && i == 4) {
+			score(3);
+			printf("%d\n", i);
+			i++;
+		}
+		if (i >= n) break;
+	}
+	while (1) {
+		if (check(n-1) >2.9) {
+			return;
 		}
 	}
-	return;
 }
 
 int route1(){ //4박자
 	int num;
 	int index = 0;
 	for (int i = 0; i < 4; i++) {
+		if (kbhit()) {
+			_getch();
+		}
 		num = rand()%2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
 			printf("심벌즈 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
-			t[index] = time(NULL);
+			QueryPerformanceCounter(&t[i]);
 			order[index] =SPACE;
 		}
 		else if (num == 1) { //1 이면 북 제시
 			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
-			t[index] = time(NULL);
+			QueryPerformanceCounter(&t[i]);
 			order[index] = ENTER;
 		}
 		index++;
 		if (i == 3) break;
 		else Sleep(770); //탁 -> 탁 사이 시간
+	}
+	if (kbhit()) {
+		_getch();
 	}
 	PlayerKey1(index);
 	
@@ -182,45 +207,61 @@ int route2() { //5박자
 	int num;
 	int index = 0;
 	for (int i = 0; i < 5; i++) {
+		if (kbhit()) {
+			_getch();
+		}
 		num = rand() % 2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
 			printf("심벌즈  "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
-			t[index] = time(NULL);
+			QueryPerformanceCounter(&t[i]);
 			order[index] = SPACE;
 		}
 		else if (num == 1) { //1 이면 북 제시
 			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
-			t[index] = time(NULL);
+			QueryPerformanceCounter(&t[i]);
 			order[index] = ENTER;
 		}
 		index++;
-		if (i == 0) Sleep(370);
-		else if (i == 4) {
-			Sleep(900);
-			return index;
-		}
-		else Sleep(520);
+		if (i == 0) Sleep(320);
+		else if (i == 4) break;
+		else if (i == 1) Sleep(500);
+		else if (i == 2) Sleep(440);
+		else Sleep(720);
+	}
+	if (kbhit()) {
+		_getch();
 	}
 	PlayerKey2(index);
 }
 
 
-void Showbit() {
+void Showbit() {  
+	QueryPerformanceFrequency(&frequency);
 	for (int i = 0; i < 4; i++) {
-		if(i==0) Sleep(1400);
+		if (kbhit()) {
+			_getch();
+		}
+		if(i==0) Sleep(1600);
 		route1();
-		Sleep(3550);
 		printf("\n");
+
+		if (kbhit()) {
+			_getch();
+		}
+
+		Sleep(50);
 		route2();
 		printf("\n");
-		Sleep(2850);
+		Sleep(200);
 	}
 	return;
 }
 
 
 int main() {
+	sum = 0;
+	int life = 1;
 	Play_Music();
 	Showbit();
 	Sleep(6800);
