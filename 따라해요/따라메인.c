@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include <conio.h>
-#include <Digitalv.h>
 #include <time.h>
 
 
@@ -17,24 +16,22 @@ void Play_Music() {
 	return;
 }
 
-void Draw_sim() {
+void Draw_sim() { //인터페이스 심벌즈(플레이어)
 
 }
 
-void Draw_buk() {
+void Draw_buk() { //인터페이스 북(플레이어)
 
 }
 
 int Key_input(int n) {  //입력 받은 키
-		switch (getch()) { 
-		case SPACE: Draw_sim;
-		case ENTER: Draw_buk;
-		}
+	switch (getch()) {
+	case SPACE: Draw_sim;
+	case ENTER: Draw_buk;
 	}
+}
 
-
-
-int sum = 0; 
+int sum = 0;
 int life = 1;
 int order[15]; //순서 저장
 LARGE_INTEGER frequency, end, t[15];
@@ -42,7 +39,7 @@ LARGE_INTEGER frequency, end, t[15];
 int score(int score)
 {
 	//perfect일 경우
-	if (score==1) {
+	if (score == 1) {
 		printf("Perfect!");
 		sum += 30;
 	}
@@ -53,7 +50,7 @@ int score(int score)
 	}
 
 	//생명이 '0'미만이 된 경우
-	if (life <0) {
+	if (life < 0) {
 		printf("Game over\n");
 		return 0; //go Game over
 	}
@@ -63,17 +60,15 @@ int score(int score)
 }
 
 
-
-
 double check(int n) {
 	QueryPerformanceCounter(&end);
 	double time = (end.QuadPart - t[n].QuadPart) / frequency.QuadPart;
-		return time;
+	return time;
 }
 
 void PlayerKey1(int n) {
-	double input_time=0;  //player 입력
-	int k=0;
+	double input_time = 0;  //player 입력
+	int k = 0;
 	int i = 0;
 	while (1) {
 		if (_kbhit()) {    // 사용자의 입력
@@ -89,10 +84,10 @@ void PlayerKey1(int n) {
 					score(3);
 				}
 			}
-			else if(k!=order[i]){
-					score(3);
+			else if (k != order[i]) {
+				score(3);
 			}
-				i++;
+			i++;
 		}
 		if (i >= n) break;
 		if (check(i) > 3) {
@@ -108,8 +103,8 @@ void PlayerKey1(int n) {
 }
 
 void PlayerKey2(int n) {
-	double input_time=0;  //player 입력
-	int k=0;
+	double input_time = 0;  //player 입력
+	int k = 0;
 	int i = 0;
 	while (1) {
 		if (_kbhit()) {    // 사용자의 입력
@@ -118,16 +113,7 @@ void PlayerKey2(int n) {
 			if (k == order[i]) {
 				QueryPerformanceCounter(&end);
 				input_time = (end.QuadPart - t[i].QuadPart) / frequency.QuadPart;
-				if ((input_time >= 2.0 && input_time <= 2.1)&&i==0) {
-					score(1);
-				}
-				else if ((input_time >= 2.0 && input_time <= 2.1) && i == 1) {
-					score(1);
-				}
-				else if ((input_time >= 2.0 && input_time <= 2.1) && (i == 2||i==3)) {
-					score(1);
-				}
-				else if ((input_time >= 2.0 && input_time <= 2.1) &&i==4) {
+				if (input_time >= 2.0 && input_time <= 2.1) {
 					score(1);
 				}
 				else {
@@ -139,12 +125,12 @@ void PlayerKey2(int n) {
 			}
 			i++;
 		}
-		if (check(i) >2.7&&i==0) {
+		if (check(i) > 2.7 && i == 0) {
 			score(3);
 			printf("%d\n", i);
 			i++;
 		}
-		else if (check(i) >2.8 && i == 1) {
+		else if (check(i) > 2.8 && i == 1) {
 			score(3);
 			printf("%d\n", i);
 			i++;
@@ -154,12 +140,12 @@ void PlayerKey2(int n) {
 			printf("%d\n", i);
 			i++;
 		}
-		else if (check(i) > 2.9 &&i==3) {
+		else if (check(i) > 2.9 && i == 3) {
 			score(3);
 			printf("%d\n", i);
 			i++;
 		}
-		else if (check(i) >2.98 && i == 4) {
+		else if (check(i) > 2.98 && i == 4) {
 			score(3);
 			printf("%d\n", i);
 			i++;
@@ -167,28 +153,28 @@ void PlayerKey2(int n) {
 		if (i >= n) break;
 	}
 	while (1) {
-		if (check(n-1) >2.9) {
+		if (check(n - 1) > 2.9) {
 			return;
 		}
 	}
 }
 
-int route1(){ //4박자
+int route1() { //4박자
 	int num;
 	int index = 0;
 	for (int i = 0; i < 4; i++) {
 		if (kbhit()) {
 			_getch();
 		}
-		num = rand()%2; // 북 or 챙
+		num = rand() % 2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
-			printf("심벌즈 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
+			printf("심벌즈 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
-			order[index] =SPACE;
+			order[index] = SPACE;
 		}
 		else if (num == 1) { //1 이면 북 제시
-			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
+			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
 			order[index] = ENTER;
 		}
@@ -200,7 +186,6 @@ int route1(){ //4박자
 		_getch();
 	}
 	PlayerKey1(index);
-	
 }
 
 int route2() { //5박자
@@ -213,12 +198,12 @@ int route2() { //5박자
 		num = rand() % 2; // 북 or 챙
 		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
-			printf("심벌즈  "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
+			printf("심벌즈  "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
 			order[index] = SPACE;
 		}
 		else if (num == 1) { //1 이면 북 제시
-			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용
+			printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
 			order[index] = ENTER;
 		}
@@ -236,13 +221,13 @@ int route2() { //5박자
 }
 
 
-void Showbit() {  
+void Showbit() {
 	QueryPerformanceFrequency(&frequency);
 	for (int i = 0; i < 4; i++) {
 		if (kbhit()) {
 			_getch();
 		}
-		if(i==0) Sleep(1600);
+		if (i == 0) Sleep(1600);
 		route1();
 		printf("\n");
 
