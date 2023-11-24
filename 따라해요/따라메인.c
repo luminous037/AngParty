@@ -16,18 +16,14 @@ void Play_Music() {
 	return;
 }
 
-void Draw_sim() { //인터페이스 심벌즈(플레이어)
-
-}
 
 void Draw_buk() { //인터페이스 북(플레이어)
-
+	printf("퉁! ");
 }
 
 int Key_input(int n) {  //입력 받은 키
-	switch (getch()) {
-	case SPACE: Draw_sim;
-	case ENTER: Draw_buk;
+	if (n == SPACE || n == ENTER) {
+		Draw_buk();
 	}
 }
 
@@ -40,7 +36,7 @@ int score(int score) //점수
 {
 	//perfect일 경우
 	if (score == 1) {
-		printf("Perfect!");
+		printf("Good!");
 		sum += 30;
 	}
 	//Bad일 경우
@@ -77,7 +73,7 @@ void PlayerKey1(int n) {
 			if (k == order[i]) {
 				QueryPerformanceCounter(&end);
 				input_time = (end.QuadPart - t[i].QuadPart) / frequency.QuadPart;
-				if (input_time >= 2.0 && input_time <= 2.1) { 
+				if (input_time >= 2.1 && input_time <= 3) { 
 					score(1);
 				}
 				else {
@@ -90,13 +86,13 @@ void PlayerKey1(int n) {
 			i++;
 		}
 		if (i >= n) break;
-		if (check(i) > 2.9) {
+		if (check(i) > 3) {
 			score(3);
 			i++;
 		}
 	}
 	while (1) {
-		if (check(n - 1) > 2.9) {
+		if (check(n-1) > 2.9) {
 			return;
 		}
 	}
@@ -126,35 +122,15 @@ void PlayerKey2(int n) {
 			}
 			i++;
 		}
-		if (check(i) > 3 && i == 0) {
-			score(3);
-			printf("%d\n", i);
-			i++;
-		}
-		else if (check(i) > 3 && i == 1) {
-			score(3);
-			printf("%d\n", i);
-			i++;
-		}
-		else if (check(i) > 3 && i == 2) {
-			score(3);
-			printf("%d\n", i);
-			i++;
-		}
-		else if (check(i) > 3 && i == 3) {
-			score(3);
-			printf("%d\n", i);
-			i++;
-		}
-		else if (check(i) > 3 && i == 4) {
-			score(3);
-			printf("%d\n", i);
-			i++;
-		}
 		if (i >= n) break;
+		if (check(i) > 3) {
+			score(3);
+			printf("%d\n", i);
+			i++;
+		}
 	}
 	while (1) {
-		if (check(n - 1) > 3) {
+		if (check(n-1) > 3) {
 			return;
 		}
 	}
@@ -163,7 +139,8 @@ void PlayerKey2(int n) {
 int route1() { //4박자
 	int num;
 	int index = 0;
-	for (int i = 0; i < 4; i++) {
+	int i = 0;
+while(1){
 		if (kbhit()) {
 			_getch();
 		}
@@ -180,8 +157,12 @@ int route1() { //4박자
 			order[index] = ENTER;
 		}
 		index++;
+		if (kbhit()) {
+			_getch();
+		}
 		if (i == 3) break;
 		else Sleep(740); //탁 -> 탁 사이 시간
+		i++;
 	}
 	if (kbhit()) {
 		_getch();
@@ -192,7 +173,8 @@ int route1() { //4박자
 int route2() { //5박자
 	int num;
 	int index = 0;
-	for (int i = 0; i < 5; i++) {
+	int i = 0;
+	while(1){
 		if (kbhit()) {
 			_getch();
 		}
@@ -209,11 +191,15 @@ int route2() { //5박자
 			order[index] = ENTER;
 		}
 		index++;
+		if (kbhit()) {
+			_getch();
+		}
 		if (i == 0) Sleep(320);
 		else if (i == 4) break;
 		else if (i == 1) Sleep(500);
 		else if (i == 2) Sleep(440);
 		else Sleep(700);
+		i++;
 	}
 	if (kbhit()) {
 		_getch();
@@ -258,11 +244,13 @@ int follow() {
 void tuto() {
 	PlaySound(TEXT("tuto.wav"), NULL, SND_ASYNC);  //노래 재생
 	//튜토리얼 인터페이스
-	printf("박자에 맞춰 앙냥이를 따라해보세요!");
+	printf("박자에 맞춰 앙냥이를 따라해보세요!!\n");
+	printf("준비가 되었다면 esc를 입력해주세요\n");
 	while (1) {
        if (_kbhit()) {
 	     int k = _getch();
 		 if (k == ESC) break;
+		 else  Key_input(k);
 	   }
 	 }
 	return;
