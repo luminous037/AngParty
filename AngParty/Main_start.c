@@ -77,7 +77,7 @@ void main_start() {
     int textLength = strlen(startText);
     int blink = 0;
 
-    while (!_kbhit()) {
+    while (1) {
 
         if (_kbhit()) {
             char ch = _getch();
@@ -103,5 +103,5 @@ void main_start() {
     for (int i = 0; i < textLength; ++i) {
         putchar(' ');
     }
-
+    return;
 }
