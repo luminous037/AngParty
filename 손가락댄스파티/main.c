@@ -5,12 +5,15 @@
 #include <conio.h>
 #include <mmsystem.h>
 
+#include "Gotoxy.h"
+
 #define MAX_WAIT_MSEC 1000
 #define MAX_DISPLAY_LINES 28
 #define MAX_LINES (MAX_DISPLAY_LINES-3)
 
 int frame[MAX_LINES][6];
 
+// void cls(HANDLE hConsole);
 void print_frame(HANDLE handle);
 void move_location();
 void input_first_value(HANDLE handle);
@@ -28,7 +31,7 @@ int main() {
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     //CursorView(0);
-    cls(handle);
+    // cls(handle);
     // PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC | SND_LOOP);
 
     print_frame(handle); //frame 출력
@@ -36,6 +39,12 @@ int main() {
     
     srand(time(NULL));
 
+    /*
+    노트는 유니코드를 이용하여 만듬
+    <전체흐름>
+    "노트를 이동 - > 첫번째 값을 입력 - > 전체화면(틀과 노트) 출력 -> 키보드 입력 및 point계산" 하는 순서
+    기본 틀은 5칸, 이것을 2차원 배열로 생각하면 frame[row][col].(row : 28칸, col : 5칸)
+    */
     while (1)
     {
         int point = 0;
