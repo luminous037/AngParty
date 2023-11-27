@@ -4,6 +4,8 @@
 #include <mmsystem.h>
 #include <conio.h>
 #include <time.h>
+
+
 #pragma comment(lib,"winmm.lib")
 #define SPACE 32 //스페이스 키 값
 #define ENTER 13//엔터 키 값
@@ -71,7 +73,7 @@ void PlayerKey1(int n) {
 			if (k == order[i]) {
 				QueryPerformanceCounter(&end);
 				input_time = (end.QuadPart - t[i].QuadPart) / frequency.QuadPart;
-				if (input_time >= 2.1 && input_time <= 3) { 
+				if (input_time >= 2.0&& input_time <= 2.3) { //2.0에서 움직이면 판정이 다 miss가 뜸
 					score(1);
 				}
 				else {
@@ -90,7 +92,7 @@ void PlayerKey1(int n) {
 		}
 	}
 	while (1) {
-		if (check(n-1) > 2.9) {
+		if (check(n - 1) > 2.9) {
 			return;
 		}
 	}
@@ -123,12 +125,11 @@ void PlayerKey2(int n) {
 		if (i >= n) break;
 		if (check(i) > 3) {
 			score(3);
-			printf("%d\n", i);
 			i++;
 		}
 	}
 	while (1) {
-		if (check(n-1) > 3) {
+		if (check(n - 1) > 3) {
 			return;
 		}
 	}
@@ -138,7 +139,7 @@ int route1() { //4박자
 	int num;
 	int index = 0;
 	int i = 0;
-while(1){
+	while (1) {
 		if (kbhit()) {
 			_getch();
 		}
@@ -172,12 +173,12 @@ int route2() { //5박자
 	int num;
 	int index = 0;
 	int i = 0;
-	while(1){
+	srand(time(NULL));
+	while (1) {
 		if (kbhit()) {
 			_getch();
 		}
 		num = rand() % 2; // 북 or 챙
-		srand(time(NULL));
 		if (num == 0) {  //0이면 챙 제시
 			printf("심벌즈  "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
@@ -245,12 +246,12 @@ void tuto() {
 	printf("박자에 맞춰 앙냥이를 따라해보세요!!\n");
 	printf("준비가 되었다면 esc를 입력해주세요\n");
 	while (1) {
-       if (_kbhit()) {
-	     int k = _getch();
-		 if (k == ESC) break;
-		 else  Keyinput(k);
-	   }
-	 }
+		if (_kbhit()) {
+			int k = _getch();
+			if (k == ESC) break;
+			else  Key_input(k);
+		}
+	}
 	return;
 }
 
