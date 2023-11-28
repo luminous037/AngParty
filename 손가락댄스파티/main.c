@@ -286,26 +286,35 @@ void display_line(HANDLE handle, int y, int shape)
     COORD pos;
 
     pos.X = 2;
-    if (y > (MAX_LINES - 1 - 2)) pos.Y = y + 1 + 1;
-    else pos.Y = y + 1;
+    if (y > (MAX_LINES - 1 - 2)) 
+        pos.Y = y + 1 + 1;
+    else 
+        pos.Y = y + 1;
     SetConsoleCursorPosition(handle, pos);
 
     for (x = 0; x < 4; x++)
     {
-        printf("\u2502  ");
+        printf("\u2502     ");
 
-        if (frame[y][x] == 1)		//box가 존재한다면
+        if (frame[y][x] == 1)		//box가 존재한다면, 1번재
         {
-            if (shape == 0)
-                printf("\u2191\u2193\u2190\u2192");
-            else
-                printf("\u25C7\u25C7\u25C7\u25C7");
+            switch (x) {
+            case 0:
+                printf("\u2190"); // 왼쪽 화살표
+                break;
+            case 1:
+                printf("\u2193"); // 아래쪽 화살표
+                break;
+            case 2:
+                printf("\u2191"); // 위쪽 화살표
+                break;
+            case 3:
+                printf("\u2192"); // 오른쪽 화살표
+                break;
+            }
         }
+        printf("                    ");
 
-        else
-        {
-            printf("                    ");
-        }
 
         if (x < 3)
             printf("                    ");
