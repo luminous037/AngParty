@@ -11,7 +11,7 @@
 
 #define MAX_WAIT_MSEC 1000 // 최대 대기 시간
 #define MAX_DISPLAY_LINES 60 // 최대 행 수
-#define MAX_LINES (MAX_DISPLAY_LINES-5) // MAX_LINES : 실제 게임에서 사용되는 행 수 , MAX_DISPLAY_LINES-5 : 최대행에서 5칸을 뺀 부분 (= 화살표가 그려진 부분 제외)
+#define MAX_LINES (MAX_DISPLAY_LINES-20) // MAX_LINES : 실제 게임에서 사용되는 행 수 , MAX_DISPLAY_LINES-5 : 최대행에서 5칸을 뺀 부분 (= 화살표가 그려진 부분 제외)
 
 int frame[MAX_LINES][6]; // 게임의 노트 위치와 점수 저장하는 2차원 배열
 
@@ -249,7 +249,7 @@ int get_point(HANDLE handle, int max_msec)
             }
         }
 
-        curr_wait_msec = max_msec / 1000;
+        curr_wait_msec = 5;
 
         Sleep(curr_wait_msec);
         wait_msec += curr_wait_msec;
