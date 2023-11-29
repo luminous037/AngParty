@@ -82,7 +82,7 @@ void print_frame(HANDLE handle)
     COORD pos;
 
     // 틀의 시작 위치 지정
-    pos.X = 2;
+    pos.X = 0;
     pos.Y = 0;
     SetConsoleCursorPosition(handle, pos);
 
@@ -95,14 +95,14 @@ void print_frame(HANDLE handle)
     // 세로줄 출력
     for (i = 0; i < (MAX_DISPLAY_LINES - 5); i++)
     {
-        pos.X = 2;
+        pos.X = 0;
         pos.Y = 1 + i;
         SetConsoleCursorPosition(handle, pos);
         printf("\u2502                                        \u2502                                        \u2502                                        \u2502                                        \u2502");
     }
 
     // 틀의 아랫부분 출력
-    pos.X = 2;
+    pos.X = 0;
     pos.Y = 1 + (MAX_DISPLAY_LINES - 5);
     SetConsoleCursorPosition(handle, pos);
     printf("\u251D\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501"
@@ -113,14 +113,14 @@ void print_frame(HANDLE handle)
     // 틀의 중간 세로줄 출력
     for (i = 0; i < 2; i++)
     {
-        pos.X = 2;
+        pos.X = 0;
         pos.Y = 1 + (MAX_DISPLAY_LINES - 5) + 1 + i;
         SetConsoleCursorPosition(handle, pos);
         printf("\u2502          \u2502          \u2502          \u2502           \u2502");
     }
 
     //틀의 마지막 세로줄 출력
-    pos.X = 2;
+    pos.X = 0;
     pos.Y = 1 + (MAX_DISPLAY_LINES - 5) + 1 + 2;
     SetConsoleCursorPosition(handle, pos);
     printf("\
@@ -215,59 +215,59 @@ int get_point(HANDLE handle, int max_msec)
 
         if (key == 'h')
         {
-            if (frame[23][0] == 1)
+            if (frame[70][0] == 1)
             {
                 point += frame[23][4];
-                frame[23][5] = 1;
+                frame[70][5] = 1;
                 break;
             }
         }
         else if (key == 'j')
         {
-            if (frame[23][1] == 1)
+            if (frame[70][1] == 1)
             {
                 point += frame[23][4];
-                frame[23][5] = 1;
+                frame[70][5] = 1;
                 break;
             }
         }
         else if (key == 'k')
         {
-            if (frame[23][2] == 1)
+            if (frame[70][2] == 1)
             {
                 point += frame[23][4];
-                frame[23][5] = 1;
+                frame[70][5] = 1;
                 break;
             }
         }
         else if (key == 'l')
         {
-            if (frame[23][3] == 1)
+            if (frame[70][3] == 1)
             {
                 point += frame[23][4];
-                frame[23][5] = 1;
+                frame[70][5] = 1;
                 break;
             }
         }
 
-        curr_wait_msec = 10;
+        curr_wait_msec = 100;
 
-        Sleep(curr_wait_msec);
+        Sleep(1000);
         wait_msec += curr_wait_msec;
     }
 
     if (frame[23][5] == 1)
         display_line(handle, 23, frame[23][5]);
 
-    if (wait_msec < max_msec)
-    {
-        int temp;
-
-        temp = max_msec - wait_msec;
-        Sleep(1000);
-    }
-
-    return point;
+   // if (wait_msec < max_msec)
+   // {
+   //     int temp;
+   //
+   //     temp = max_msec - wait_msec;
+   //     Sleep(1000);
+   // }
+   //
+   // return point;
 }
 
 
@@ -287,7 +287,7 @@ void display_line(HANDLE handle, int y, int shape)
     int x; //x : 현재 열의 인덱스 (0 ~ 3)
     COORD pos;
 
-    pos.X = 2; // 열의 시작 위치를 설정
+    pos.X = 0; // 열의 시작 위치를 설정
 
     // 현재 행에 대한 출력 위치 계산
     if (y > (MAX_LINES - 1 - 2))  // 현재 행이 틀의 아랫부분에 위치하면 두칸 더 아래로 이동해 출력
@@ -300,34 +300,34 @@ void display_line(HANDLE handle, int y, int shape)
     // 열이 0~3까지 순회
     for (x = 0; x < 4; x++)
     {
-        printf("\u2502     "); // 각열의 시작부분에 세로줄 출력
+        printf("\u2502  "); // 각열의 시작부분에 세로줄 출력
 
         if (frame[y][x] == 1)		// 현재 위치에 노트가 있는지 check, 1이면 노트가 존재
         {
             switch (x) { // 현재 열의 인덱스에 따라 어떤 화살표 출력할지 결정
             case 0: // 첫번째 열일 경우
-                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
                 break;
             case 1: //두번째 열일 경우
-                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
                 break;
             case 2: // 3번쨰 열일 경우
-                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"); 
+                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"); 
                 break;
             case 3: // 4번쨰 열일 경우 
-                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+                printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
                 break;
             }
         }
         else { // 노트가 없는 경우(0) 화살표 출력하지 않음
-            printf("             "); // 화살표 출력후 공백 출력해 열 정렬
+            printf("                                  "); // 화살표 출력후 공백 출력해 열 정렬
         }
 
         if (x < 3)
-            printf("              "); //마지막 열 전까지 추가로 공백을 출력하여 열 간격 조정
+            printf("    "); //마지막 열 전까지 추가로 공백을 출력하여 열 간격 조정
         else
         {
-            printf("                     \u2502\n");  // 마지막 열에서는 세로줄 출력
+            printf("    \u2502\n");  // 마지막 열에서는 세로줄 출력
         }
     }
     fflush(stdout);
