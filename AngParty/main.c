@@ -84,6 +84,22 @@ int main() {
 
     else if (n == 2) main();
 
+    else if (n == 3) {
+        gotoxy(0, 0);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        SetScreen();
+        followmeGame();
+    }
+
+    else if (n == 4) {
+
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        gotoxy(0, 0);
+        SetScreen();
+        gotoxy(0, 1);
+        printf("앙냥이의 손가락파티를 선택하셨네요?");
+    }
+
     return 0;
 
 }
