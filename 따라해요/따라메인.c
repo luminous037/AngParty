@@ -65,37 +65,37 @@ void PrintWait() {
 void PrintDrum2(){
 
 	gotoxy(0, 3);
-	printf("                     ZZZZZZZZZZ                                                             ZZZZZZ                                        \n");
-	printf("                   ZZZZ   ZZZZZZZZ             ZZZ                                      ZZZZZ    ZZ                                       \n");
-	printf("                   ZZ  ZZZZ    Z  ZZZZZZZ ZZZZZZ  Z                                    ZZZ   ZZZZZZZZZZZ            ZZZ                   \n");
-	printf("                 zZZZ  Z      ZZ        ZZZZ      Z                                    Z  ZZZ      Z   ZZZZZ   ZZZZZ  Z                   \n");
-	printf("               ZZZ   ZZZZZZZZZz                   Z                                 ZZZZ  Z       ZZ        ZZZ       ZZ                  \n");
-	printf("      ZZZZZZZZZz                                  Z                               ZZZ   ZZZZZZZZZZz                   Zy                  \n");
-	printf("     ZZ                                           Z                             ZZZ                                   ZZ                  \n");
-	printf("     ZZ                                ZZ         ZZ                   ZZZZZZZZZZ                                     ZZ                  \n");
-	printf("      Z              ZZZ              Z  Z         ZZZ                 ZZ                                             ZZ                  \n");
-	printf("      Zz            Z   Z   Z  ZZ  Z   ZZ      ZZZZZ ZZ                 Z                                               ZZ                \n");
-	printf("       Z             ZZZ     ZZ  ZZ                   ZZ     ♬       ZZ                               ZZZ         ZZZZZZ                 \n");
-	printf("       ZZ                    Z    Z             ZZZZZZZZ                 Z             ZZZ               ZZZ              Z  ZZZZ         \n");
-	printf("       ZZZZZz                Z    Z                   Z                   Z            ZZZ      ZZZZZZ                    ZZZZZZZZ        \n");
-	printf("       Z                       ZZZ                    Z                   Z                                            ZZZ       ZZ       \n");
-	printf("       ZZZZZ                                      ZZZZ    ♬           ZZZZZ              ZZZ    ZZZ               ZZZ  ZZZZZZZ  ZZZ      \n");
-	printf("       Z   Z                                      ZZ        ♬         ZZ                ZZZZZZZZZZZZ              Z  ZZ       Z  Z Z     \n");
-	printf("        ZZZZ                                      ZZ           ♬       ZZZ            zZ            ZZZ           Z ZZ         Z  ZZ     \n");
-	printf("         ZZ               ZZ        Z            ZZ        ♬           ZZ  ZZ       ZZZ  ZZZZZZZZ    Z ZZ      ZZZZZZZZZZZ     Z   Z     \n");
-	printf("           Z              ZZZZZZZZZZZZ         zZ  Z                       ZZZ       ZZ    Z        ZZ  ZZ Z     ZZ         ZZ    Z  ZZ   \n");
-	printf("           Z   ZZ         Z          zZ        ZZZZZZz                      ZZ        ZZZZZZ         Z   ZZ                  Z    Z   Z   \n");
-	printf("           Z ZZZZZ       ZZ           ZZZ     ZZ     ZZZ                     ZZ     ZZ      ZZ9      Z    Z                  Z  ZZZ  ZZ   \n");
-	printf("          ZZ     ZZZZZZZZZ             ZZZZZZZ         ZZ                    ZZ               Z    zZZ   Z                  ZZZZZ   ZZ    \n");
-	printf("         ZZ                                             ZZ                   ZZ               ZZZZZZ    ZZ         ZZ     ZZ      ZZ      \n");
-	printf("         Z                                             ZZZ                    Z               Z       ZZ            zZZZZZZZZZZZZZ        \n");
-	printf("         Z  ZZZZ                               ZZZZZZ   ZZ                    ZZ      ZZZZZZZZ ZZZZZZZ                     ZZ             \n");
-	printf("         Z     ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ        ZZ                     Z                                           ZZ             \n");
-	printf("         Z                                              Z                      ZZ        ZZZZZZZZ                            Z            \n");
-	printf("         ZZ                                            Z                        ZZ               ZZ                          Z            \n");
-	printf("          ZZ                                        ZZZ                          ZZ               Z                          Z            \n");
-	printf("           ZZZZZZZZZZZZ                       ZZZZZZZ                             ZZ              Z           ZZZZZZZ      ZZ             \n");
-	printf("                       ZZZZZZZZZZZZZZZZZZZZZZZZZ                                   ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ      ZZZZZZ               \n");
+	printf("                     ZZZZZZZZZZ                                                       ZZZZZZ                                        \n");
+	printf("                   ZZZZ   ZZZZZZZZ             ZZZ                                ZZZZZ    ZZ                                       \n");
+	printf("                   ZZ  ZZZZ    Z  ZZZZZZZ ZZZZZZ  Z                              ZZZ   ZZZZZZZZZZZ            ZZZ                   \n");
+	printf("                 zZZZ  Z      ZZ        ZZZZ      Z                              Z  ZZZ      Z   ZZZZZ   ZZZZZ  Z                   \n");
+	printf("               ZZZ   ZZZZZZZZZz                   Z                           ZZZZ  Z       ZZ        ZZZ       ZZ                  \n");
+	printf("      ZZZZZZZZZz                                  Z                         ZZZ   ZZZZZZZZZZz                   ZZ                  \n");
+	printf("     ZZ                                           Z                       ZZZ                                   ZZ                  \n");
+	printf("     ZZ                                ZZ         ZZ             ZZZZZZZZZZ                                     ZZ                  \n");
+	printf("      Z              ZZZ              Z  Z         ZZZ           ZZ                                             ZZ                  \n");
+	printf("      Zz            Z   Z   Z  ZZ  Z   ZZ      ZZZZZ ZZ           Z                                               ZZ                \n");
+	printf("       Z             ZZZ     ZZ  ZZ                   ZZ          ZZ                               ZZZ         ZZZZZZ               \n");
+	printf("       ZZ                    Z    Z             ZZZZZZZZ           Z             ZZZ               ZZZ              Z  ZZZZ         \n");
+	printf("       ZZZZZz                Z    Z                   Z             Z            ZZZ      ZZZZZZ                    ZZZZZZZZ        \n");
+	printf("       Z                       ZZZ                    Z             Z                                            ZZZ       ZZ       \n");
+	printf("       ZZZZZ                                      ZZZZ             ZZZZZ              ZZZ    ZZZ               ZZZ  ZZZZZZZ  ZZZ   \n");
+	printf("       Z   Z                                      ZZ               ZZ                ZZZZZZZZZZZZ              Z  ZZ       Z  Z Z   \n");
+	printf("        ZZZZ                                      ZZ                ZZZ            zZ            ZZZ           Z ZZ         Z  ZZ   \n");
+	printf("         ZZ               ZZ        Z            ZZ                 ZZ  ZZ       ZZZ  ZZZZZZZZ    Z ZZ      ZZZZZZZZZZZ     Z   Z  \n");
+	printf("           Z              ZZZZZZZZZZZZ         zZ  Z                 ZZZ       ZZ    Z        ZZ  ZZ Z     ZZ         ZZ    Z  ZZ   \n");
+	printf("           Z   ZZ         Z          zZ        ZZZZZZz                ZZ        ZZZZZZ         Z   ZZ                  Z    Z   Z   \n");
+	printf("           Z ZZZZZ       ZZ           ZZZ     ZZ     ZZZ               ZZ     ZZ      ZZ9      Z    Z                  Z  ZZZ  ZZ   \n");
+	printf("          ZZ     ZZZZZZZZZ             ZZZZZZZ         ZZ              ZZ               Z    zZZ   Z                  ZZZZZ   ZZ    \n");
+	printf("         ZZ                                             ZZ             ZZ               ZZZZZZ    ZZ         ZZ     ZZ      ZZ      \n");
+	printf("         Z                                             ZZZ              Z               Z       ZZ            zZZZZZZZZZZZZZ        \n");
+	printf("         Z  ZZZZ                               ZZZZZZ   ZZ              ZZ      ZZZZZZZZ ZZZZZZZ                     ZZ             \n");
+	printf("         Z     ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ        ZZ               Z                                           ZZ             \n");
+	printf("         Z                                              Z                ZZ        ZZZZZZZZ                            Z            \n");
+	printf("         ZZ                                            Z                  ZZ               ZZ                          Z            \n");
+	printf("          ZZ                                        ZZZ                    ZZ               Z                          Z            \n");
+	printf("           ZZZZZZZZZZZZ                       ZZZZZZZ                       ZZ              Z           ZZZZZZZ      ZZ             \n");
+	printf("                       ZZZZZZZZZZZZZZZZZZZZZZZZZ                             ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ      ZZZZZZ               \n");
 }
 
 
