@@ -15,6 +15,7 @@
 
 #define width 230
 #define height 75
+#define ESC 27
 
 
 
@@ -64,7 +65,7 @@ void clearInputBuffer() {
 }
 
 int main() {
-
+    int fin;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -76,10 +77,20 @@ int main() {
     SetScreen();
 
     main_start();//메인화면
-
-    int n=main_menu();
-    if (n == 1) return 0;
-    else if (n == 2) main();
+    while (1) {
+        int n = main_menu();
+        if (n == 1) {
+            PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_ASYNC);
+            gotoxy(0, 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+            SetScreen();
+            Sleep(1300);
+            return 0;
+        }
+        else if (n == 2) main();
+        else if (n == 3) Ang1();
+        //else if (n == 4) Ang2();
+    }
 
    // return 0;
 
