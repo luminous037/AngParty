@@ -63,8 +63,14 @@ void clearInputBuffer() {
     while ((ch = getchar()) != '\n' && ch != EOF);
 }
 
-int main() {
+void fullscreen() {
+    SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
+}
 
+int main() {
+    
+    fullscreen();
+  
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
