@@ -178,11 +178,11 @@ void PlayerKey1(int n) {
 			if (k == order[i]) {
 				QueryPerformanceCounter(&end);
 				input_time = (end.QuadPart - t[i].QuadPart) / frequency.QuadPart;
-				if (input_time >= 2.0&& input_time <= 2.8) { //2.0에서 움직이면 판정이 다 miss가 뜸
+				if (input_time >= 2.0 && input_time <= 2.8) { //2.0에서 움직이면 판정이 다 miss가 뜸
 					score(1);
 				}
 				else {
-				score(3);
+					score(3);
 				}
 			}
 			else if (k != order[i]) {
@@ -223,7 +223,7 @@ void PlayerKey2(int n) {
 					else score(3);
 				}
 				else if (i == 2 || i == 3) {
-					if (input_time >= 2.2 && input_time <= 3.0) score(1);
+					if (input_time >= 2.0 && input_time <= 2.8) score(1);
 					else score(3);
 				}
 				else if (input_time >= 2.2 && input_time <= 3) {
@@ -238,7 +238,7 @@ void PlayerKey2(int n) {
 			}
 			i++;
 		}
-		if (i >=n) break;
+		if (i >= n) break;
 		if (i == 0) {
 			if (check(i) > 3.0) {
 				score(3);
@@ -251,7 +251,7 @@ void PlayerKey2(int n) {
 		}
 	}
 	while (1) {
-		if (check(n-1) > 2.9) {
+		if (check(n - 1) > 2.9) {
 			return;
 		}
 	}
@@ -348,7 +348,7 @@ void Showbit() {
 		if (kbhit()) {
 			_getch();
 		}
-		if (i == 0) Sleep(1600);
+		if (i == 0) Sleep(1200);
 		else Sleep(500);
 
 		route1();
