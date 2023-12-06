@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
@@ -9,6 +10,7 @@
 #define SPACE 32 //스페이스 키 값
 #define ENTER 13//엔터 키 값
 #define ESC 27 //esc 값
+#define S 115 //s 값
 
 void PrintWait() {
 	gotoxy(0, 3);
@@ -189,7 +191,9 @@ void PlayerKey1(int n) {
 			}
 			i++;
 		}
-		if (i >= n) break;
+		if (i >= n) { 
+			break;
+		}
 		if (check(i) > 2.9) {
 			score(3);
 			i++;
@@ -294,6 +298,17 @@ int route1() { //4박자
 	if (_kbhit()) {
 		_getch();
 	}
+	FILE* RIGHT = fopen("앙냥이.txt", "r");
+	int x = 30;  // X 좌표
+	int y = 20;
+	gotoxy(x, y);
+	char buffer[256];
+	while (fgets(buffer, sizeof(buffer), RIGHT) != NULL) {
+
+		printf("%s", buffer);
+		y++;  // 다음 줄로 이동
+		gotoxy(x, y);
+	}
 	PlayerKey1(index);
 }
 
@@ -337,6 +352,17 @@ int route2() { //5박자
 	if (_kbhit()) {
 		_getch();
 	}
+	FILE* RIGHT = fopen("앙냥이.txt", "r");
+	int x = 30;  // X 좌표
+	int y = 20;
+	gotoxy(x, y);
+	char buffer[256];
+	while (fgets(buffer, sizeof(buffer), RIGHT) != NULL) {
+
+		printf("%s", buffer);
+		y++;  // 다음 줄로 이동
+		gotoxy(x, y);
+	}
 	PlayerKey2(index);
 }
 
@@ -347,7 +373,7 @@ void Showbit() {
 		if (_kbhit()) {
 			_getch();
 		}
-		if (i == 0) Sleep(1000);
+		if (i == 0) Sleep(800);
 		else Sleep(500);
 
 		route1();
@@ -378,11 +404,11 @@ void tuto() {
 	PlaySound(TEXT("tuto.wav"), NULL, SND_ASYNC);  //노래 재생
 	//튜토리얼 인터페이스
 	printf("박자에 맞춰 앙냥이를 따라해보세요!!\n");
-	printf("준비가 되었다면 esc를 입력해주세요\n");
+	printf("준비가 되었다면 s를 입력해주세요\n");
 	while (1) {
 		if (_kbhit()) {
 			int k = _getch();
-			if (k == ESC) break;
+			if (k == S) break;
 		}
 	}
 	return;
