@@ -4,7 +4,7 @@
 #include <time.h>
 #include <conio.h>
 #include <mmsystem.h>
-#include<string.h>
+#include <string.h>
 
 #pragma comment (lib, "winmm.lib") // PlaySound함수 이용하기 위해서
 
@@ -16,8 +16,8 @@
 
 int frame[100][6]; // 게임 할 떄 노트의 위치를 저장 
 
+
 // void cls(HANDLE hConsole);
-void character(HANDLE handle);
 void print_frame(HANDLE handle); // 게임의 기본 틀 출력
 void move_location(); // 노트가 이동하는 함수, 행을 한 칸 씩 감소
 void random_note(HANDLE handle); // 노트의 초기위치와 점수를 랜덤 생성
@@ -27,11 +27,19 @@ void display_total_point(HANDLE handle, int total_porint); // 총 점수 화면�
 void display_line(HANDLE handle, int y, int shape); // 특정 행의 노트 상태 화면에 출력
 
 
+unsigned _stdcall Thread_A(void* arg)
+{
+    Sleep(4000);
+    PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC);
+}
+
+LARGE_INTEGER f, e, timee;
 int danceparty() {
     system("mode con : cols = 220 lines = 80"); // 콘솔창 크기 설정(가로 : 220, 세로 : 80)
     int total_point = 0; //합산 점수
     HANDLE handle;
     COORD pos;
+    QueryPerformanceFrequency(&f);
 
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -40,7 +48,8 @@ int danceparty() {
     CursorView(0);
     // cls(handle);
 
-    PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC | SND_LOOP);
+    QueryPerformanceCounter(&timee);
+    _beginthreadex(NULL, 0, Thread_A, 0, 0, NULL);
 
     print_frame(handle); //frame 출력
 
@@ -48,14 +57,13 @@ int danceparty() {
 
     srand(time(NULL));
 
-    /*
-    <전체흐름>
-    "노트를 이동 - > 전체화면(틀과 노트) 출력 -> 키보드 입력 및 point계산" 하는 순서
-    기본 틀은 5칸, 이것을 2차원 배열로 생각하면 frame[row][col].(row : 28칸, col : 5칸)
-    */
-
     while (1)
     {
+        QueryPerformanceCounter(&e);
+        if ((e.QuadPart - timee.QuadPart) / f.QuadPart >= 61) {
+            system("cls");
+            break;
+        }
         int point = 0;
 
         move_location(); // 위치 이동
@@ -84,12 +92,25 @@ void print_frame(HANDLE handle)
 {
     int i;
     COORD pos;
+    FILE* TITLE = fopen("LetsDance.txt", "r"); // 파일 열기
+    int x = 80;
+    int y = 0;
+    gotoxy(x, y);
+    char buffer[256];
+    for (int i = 0; i < 10; i++) {
+        fgets(buffer, sizeof(buffer), TITLE);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+        printf("%s", buffer);
+        y++;  // 다음 줄로 이동
+        gotoxy(x, y);
+    }
+    fclose(TITLE);
 
     // 틀의 시작 위치 지정
     pos.X = 0;
     pos.Y = 0;
     SetConsoleCursorPosition(handle, pos);
-
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
     //틀의 윗부분 출력 (구간 마다 20칸 설정(=각 칸 40개)
     printf("\u250D\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501" // 첫번째 열
         "\u252F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501" // 두번째 열, u252F : ㅜ 
@@ -102,6 +123,7 @@ void print_frame(HANDLE handle)
         pos.X = 0;
         pos.Y = 1 + i;
         SetConsoleCursorPosition(handle, pos);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
         printf("\u2502                                        \u2502                                        \u2502                                        \u2502                                        \u2502");
     }
 
@@ -109,6 +131,7 @@ void print_frame(HANDLE handle)
     pos.X = 0;
     pos.Y = (MaxLine - 3) + 1;
     SetConsoleCursorPosition(handle, pos);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
     printf("\
 \u251D\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
 \u253F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -121,6 +144,7 @@ void print_frame(HANDLE handle)
         pos.X = 0;
         pos.Y = (MaxLine - 3) + 2 + i;
         SetConsoleCursorPosition(handle, pos);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
         printf("\u2502                                        \u2502                                        \u2502                                        \u2502                                        \u2502");
     }
 
@@ -128,6 +152,7 @@ void print_frame(HANDLE handle)
     pos.X = 0;
     pos.Y = (MaxLine - 3) + 4;
     SetConsoleCursorPosition(handle, pos);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
     printf("\
 \u2515\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
 \u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -194,17 +219,19 @@ int get_point(HANDLE handle)
     int point = 0;
     int wait_ms = 0;
     char key = 0;
+    int Height = 30;
 
     // 왼쪽 화살표를 클릭할 경우
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
     {
         FILE* LEFT = fopen("LeftAng.txt", "r"); // 파일 열기
-        int x = 100;
+        int x = 85;
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        while (fgets(buffer, sizeof(buffer), LEFT) != NULL) {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+        for (int i = 0; i < Height; i++) {
+            fgets(buffer, sizeof(buffer), LEFT);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -213,24 +240,25 @@ int get_point(HANDLE handle)
 
         if (frame[58][0] == 1 || frame[59][0] == 1)
         {
-            point += 30;
+            point += 10;
 
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][0] == 1) point += 10;
+        else if (frame[57][0] == 1) point += 5;
     }
 
 
     else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
     {
         FILE* DOWN = fopen("DownAng.txt", "r"); // 파일 열기
-        int x = 100;
+        int x = 85;
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        while (fgets(buffer, sizeof(buffer), DOWN) != NULL) {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+        for (int i = 0; i < Height; i++) {
+            fgets(buffer, sizeof(buffer), DOWN);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -239,21 +267,22 @@ int get_point(HANDLE handle)
 
         if (frame[58][1] == 1 || frame[59][1] == 1)
         {
-            point += 30;
+            point += 10;
 
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][1] == 1)point += 10;
+        else if (frame[57][1] == 1)point += 5;
     }
     else if (GetAsyncKeyState(VK_UP) & 0x8000)
     {
         FILE* UP = fopen("UpAng.txt", "r");
-        int x = 100;  // X 좌표
+        int x = 85;  // X 좌표
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        while (fgets(buffer, sizeof(buffer), UP) != NULL) {
+        for (int i = 0; i < Height; i++) {
+            fgets(buffer, sizeof(buffer), UP);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
@@ -263,25 +292,25 @@ int get_point(HANDLE handle)
 
         if (frame[58][2] == 1 || frame[59][2] == 1)
         {
-            point += 30;
+            point += 10;
 
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][2] == 1)point += 10;
+        else if (frame[57][2] == 1)point += 5;
     }
 
 
     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
     {
-
         FILE* RIGHT = fopen("RightAng.txt", "r");
-        int x = 100;  // X 좌표
+        int x = 85;  // X 좌표
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        while (fgets(buffer, sizeof(buffer), RIGHT) != NULL) {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+        for (int i = 0; i < Height; i++) {
+            fgets(buffer, sizeof(buffer), RIGHT);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -290,12 +319,12 @@ int get_point(HANDLE handle)
 
         if (frame[58][3] == 1 || frame[59][3] == 1)
         {
-            point += 30;
+            point += 10;
 
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][3] == 1) point += 10;
+        else if (frame[57][3] == 1) point += 5;
     }
 
     // 판정 부분에 해당하는 노트를 사용자가 정확하게 눌렀다는 의미(shape값이 1), display_line호출
@@ -312,7 +341,7 @@ void display_total_point(HANDLE handle, int total_point)
     COORD pos;
 
     pos.X = 200;
-    pos.Y = 10;
+    pos.Y = 58;
 
     SetConsoleCursorPosition(handle, pos);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
@@ -340,10 +369,10 @@ void display_line(HANDLE handle, int y, int shape)
     // 열이 0~3까지 순회
     for (x = 0; x < 4; x++)
     {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
         printf("\u2502  "); // 각열의 시작부분에 세로줄 출력
 
-        if (frame[y][x] == 1)   //현재 행에 노트가 있다면 x에 따라서 출력
-        {
+        if (frame[y][x] == 1) {   //현재 행에 노트가 있다면 x에 따라서 출력
             if (shape == 0) {
                 switch (x) { // 현재 열의 인덱스에 따라 어떤 화살표 출력할지 결정
                 case 0: // 첫번째 열일 경우
@@ -364,8 +393,8 @@ void display_line(HANDLE handle, int y, int shape)
                     break;
                 }
             }
-            else {//올바르게 쳤을 경우
-                printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+            else { //올바르게 쳤을 경우
+                printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
             }
         }
         else { // 노트가 없는 경우(0) 화살표 출력하지 않음
@@ -377,7 +406,8 @@ void display_line(HANDLE handle, int y, int shape)
 
         else
         {
-            printf("    \u2502    \n");  // 마지막 열에서는 세로줄 출력, frame[y][4]점수 출력
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+            printf("    \u2502");  // 마지막 열에서는 세로줄 출력, frame[y][4]점수 출력
         }
     }
     fflush(stdout);
