@@ -45,8 +45,6 @@ int main() {
 
     print_frame(handle); //frame 출력
 
-    character(handle);
-
     display_total_point(handle, 0); // 점수표시
 
     srand(time(NULL));
@@ -81,26 +79,6 @@ int main() {
     SetConsoleCursorPosition(handle, pos);
 
     return 0;
-}
-void character(HANDLE handle) {
-
-    FILE* LEFT = fopen("LeftAng.txt", "r"); // 파일 열기
-
-    // 파일 내용을 읽어서 콘솔에 출력
-    int x = 90;  // X 좌표
-    int y =20;   // Y 좌표
-
-    gotoxy(x, y);
-
-    char buffer[256];
-    while (fgets(buffer, sizeof(buffer), LEFT) != NULL) {
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-        printf("%s", buffer);
-        y++;  // 다음 줄로 이동
-        gotoxy(x, y);
-    }
-
-    fclose(LEFT); // 파일 닫기
 }
 
 void print_frame(HANDLE handle)
@@ -221,6 +199,19 @@ int get_point(HANDLE handle)
     // 왼쪽 화살표를 클릭할 경우
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
     {
+        FILE* LEFT = fopen("LeftAng.txt", "r"); // 파일 열기
+        int x = 100;
+        int y = 20;
+        gotoxy(x, y);
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), LEFT) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            printf("%s", buffer);
+            y++;  // 다음 줄로 이동
+            gotoxy(x, y);
+        }
+        fclose(LEFT);
+
         if (frame[58][0] == 1 || frame[59][0] == 1)
         {
             point += 30;
@@ -230,8 +221,23 @@ int get_point(HANDLE handle)
         }
         else if(frame[57][0] == 1) point += 10;
     }
+
+
     else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
     {
+        FILE* DOWN = fopen("DownAng.txt", "r"); // 파일 열기
+        int x = 100;  
+        int y = 20;   
+        gotoxy(x, y);
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), DOWN) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            printf("%s", buffer);
+            y++;  // 다음 줄로 이동
+            gotoxy(x, y);
+        }
+        fclose(DOWN);
+
         if (frame[58][1] == 1 || frame[59][1] == 1)
         {
             point += 30;
@@ -243,6 +249,19 @@ int get_point(HANDLE handle)
     }
     else if (GetAsyncKeyState(VK_UP) & 0x8000)
     {
+        FILE* UP = fopen("UpAng.txt", "r");
+        int x = 100;  // X 좌표
+        int y = 20;
+        gotoxy(x, y);
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), UP) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            printf("%s", buffer);
+            y++;  // 다음 줄로 이동
+            gotoxy(x, y);
+        }
+        fclose(UP);
+
         if (frame[58][2] == 1 || frame[59][2] == 1)
         {
             point += 30;
@@ -252,8 +271,24 @@ int get_point(HANDLE handle)
         }
         else if (frame[57][2] == 1)point += 10;
     }
+
+
     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
     {
+        
+        FILE* RIGHT = fopen("RightAng.txt", "r");
+        int x = 100;  // X 좌표
+        int y = 20;
+        gotoxy(x, y);
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), RIGHT) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            printf("%s", buffer);
+            y++;  // 다음 줄로 이동
+            gotoxy(x, y);
+        }
+        fclose(RIGHT);
+
         if (frame[58][3] == 1 || frame[59][3] == 1)
         {
             point += 30;
