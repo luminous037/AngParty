@@ -146,12 +146,6 @@ int score(int score) //점수
 		life--;
 	}
 
-	//생명이 '0'미만이 된 경우
-	//if (life < 0) {
-	//	printf("Game over\n");
-	//	return 0; //go Game over
-	//}
-
 	//점수출력
 	gotoxy(50, 53);
 	printf("Score = %d    \n", sum);
@@ -263,7 +257,7 @@ int route1() { //4박자
 	int i = 0;
 
 	while (1) {
-		if (kbhit()) {
+		if (_kbhit()) {
 			if (_getch() == ESC) {
 				main();
 			}
@@ -285,14 +279,14 @@ int route1() { //4박자
 			PrintWait();
 		}
 		index++;
-		if (kbhit()) {
+		if (_kbhit()) {
 			_getch();
 		}
 		if (i == 3) break;
 		else Sleep(580); //탁 -> 탁 사이 시간
 		i++;
 	}
-	if (kbhit()) {
+	if (_kbhit()) {
 		_getch();
 	}
 	PlayerKey1(index);
@@ -304,13 +298,12 @@ int route2() { //5박자
 	int i = 0;
 
 	while (1) {
-		if (kbhit()) {
+		if (_kbhit()) {
 			_getch();
 		}
 		num = rand() % 2; // 북 or 챙
 		if (num == 0) {  //0이면 챙 제시
 			PrintTam2();
-			//printf("심벌즈  "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
 			order[index] = ENTER;
 			Sleep(130);
@@ -318,14 +311,13 @@ int route2() { //5박자
 		}
 		else if (num == 1) { //1 이면 북 제시
 			PrintDrum2();
-			//printf("북 "); // 이 곳에 대충 함수 만들어서 앙냥이 움직이는 거 넣어주세용(앙냥이 인터페이스)
 			QueryPerformanceCounter(&t[i]);
 			order[index] = SPACE;;
 			Sleep(130);
 			PrintWait();
 		}
 		index++;
-		if (kbhit()) {
+		if (_kbhit()) {
 			_getch();
 		}
 		if (i == 0) Sleep(320);
@@ -335,7 +327,7 @@ int route2() { //5박자
 		else Sleep(700);
 		i++;
 	}
-	if (kbhit()) {
+	if (_kbhit()) {
 		_getch();
 	}
 	PlayerKey2(index);
@@ -345,7 +337,7 @@ int route2() { //5박자
 void Showbit() {
 	srand(time(NULL));
 	for (int i = 0; i < 4; i++) {
-		if (kbhit()) {
+		if (_kbhit()) {
 			_getch();
 		}
 		if (i == 0) Sleep(1200);
@@ -353,7 +345,7 @@ void Showbit() {
 
 		route1();
 
-		if (kbhit()) {
+		if (_kbhit()) {
 			_getch();
 		}
 
