@@ -134,6 +134,7 @@ int sum;
 int life = 1;
 int order[15]; //순서 저장
 LARGE_INTEGER frequency, end, t[15];
+char finalscore[1000];
 
 int score(int score) //점수
 {
@@ -392,13 +393,69 @@ void Showbit() {
 	return;
 }
 
+void scorescreen() {
+
+	gotoxy(0, 0);
+	SetScreen();
+
+	FILE* RIGHT = fopen("finalscore.txt", "r");
+	int x = 30;  // X 좌표
+	int y = 20;
+	gotoxy(x, y);
+	char buffer[256];
+	while (fgets(buffer, sizeof(buffer), RIGHT) != NULL) {
+
+		printf("%s", buffer);
+		y++;  // 다음 줄로 이동
+		gotoxy(x, y);
+	}
+
+	gotoxy(42, 29);
+
+	printf("               < Press ESC to exit >");
+
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("                                                                                        ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ \n");
+	printf("                                                                                        Z                                             Z \n");
+	printf("                                                                                        Z                                             Z \n");
+	printf("                                                                                        Z                     %d                     Z \n",sum);
+	printf("                                                                                        Z                                             Z \n");
+	printf("                                                                                        Z                                             Z \n");
+	printf("                                                                                        ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ \n");
+	printf("                                                                                              Z    Z  ZZZZZ        ZZZZZZDZ    ZZ       \n");
+	printf("                                                                                           ZZZZ    ZZZ                    Z    ZZZZZ    \n");
+	printf("                                                                                           Z  Z    ZZ                     Z    ZZ Z     \n");
+	printf("                                                                                            Z Z    ZZ                     Z    ZZZ      \n");
+	printf("                                                                                            Z Z    ZZ  ZZ           ZZ    Z    ZZ       \n");
+	printf("                                                                                             ZZ    ZZ  ZZ           ZZ    Z    ZZ       \n");
+	printf("                                                                                             ZZ    ZZ     ZZ__Z__ZZ       Z    ZZ       \n");
+	printf("                                                                                             ZZ    ZZ     Z       Z       Z    ZZ       \n");
+	printf("                                                                                             ZZ    ZZ     Z       Z       Z    ZZ       \n");
+	printf("                                                                                              ZZZ  ZZ     ZZ     ZZ       Z   ZZZZ      \n");
+	printf("                                                                                             ZZ  Z ZZ       ZZZZZ         Z  Z   ZZ     \n");
+	printf("                                                                                             Z   ZZZZ                     ZZZZ   ZZ     \n");
+	printf("                                                                                              ZZ                                ZZ      \n");
+	printf("                                                                                               ZZ                              ZZ       \n");
+	while (1) {
+		char ch = _getch();
+		if (ch == ESC) {
+			return;
+		}
+	}
+
+	
+}
 
 int follow() {
+
 	sum = 0;
-	int life = 1;
 	Play_Music();
 	Showbit();
-	Sleep(5000);
+	
+	Sleep(3000);
+	scorescreen();
 
 	return 0;
 }
@@ -416,6 +473,8 @@ void tuto() {
 	}
 	return;
 }
+
+
 
 int followmeGame() {
 
