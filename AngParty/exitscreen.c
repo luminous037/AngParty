@@ -53,69 +53,69 @@ int exitscreen() {
 	printf("                                                          ZZZZZZZZZ                                                                                                       \n");
 	printf("                                                          Z  Yes  Z                                        No                                                             \n");
 	printf("                                                          ZZZZZZZZZ                                                                                                       \n");
-	
+
 	int key1;
 
-	
 
-		while (1) //키보드 움직임
+
+	while (1) //키보드 움직임
+	{
+
+		if (_kbhit())
 		{
+			key1 = _getch();
 
-			if (_kbhit())
+
+			if (key1 == 224 || key1 == 0)
 			{
 				key1 = _getch();
 
-
-				if (key1 == 224 || key1 == 0)
+				switch (key1)
 				{
-					key1 = _getch();
+				case 75: //left
 
-					switch (key1)
-					{
-					case 75: //left
-
-						PlaySound(TEXT("sweep.wav"), NULL, SND_FILENAME | SND_ASYNC);
+					PlaySound(TEXT("sweep.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 
-						gotoxy(30, 30);
-						printf("\n");
-						printf("                                                          ZZZZZZZZZ                                                                                                       \n");
-						printf("                                                          Z  Yes  Z                                        No                                                             \n");
-						printf("                                                          ZZZZZZZZZ                                                                                                       \n");
+					gotoxy(30, 30);
+					printf("\n");
+					printf("                                                          ZZZZZZZZZ                                                                                                       \n");
+					printf("                                                          Z  Yes  Z                                        No                                                             \n");
+					printf("                                                          ZZZZZZZZZ                                                                                                       \n");
 
-						return_n = 1;
+					return_n = 1;
 
-						break;
+					break;
 
-					case 77: //riight
-
-						
-
-						PlaySound(TEXT("sweep.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
-						gotoxy(30, 30);
-
-						printf("\n");
-						printf("                                                                                                       ZZZZZZZZZZ                                                         \n");
-						printf("                                                             Yes                                       Z   No   Z                                                         \n");
-						printf("                                                                                                       ZZZZZZZZZZ                                                         \n");
+				case 77: //riight
 
 
-						return_n = 2;
 
-						break;
+					PlaySound(TEXT("sweep.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
-					}
+					gotoxy(30, 30);
+
+					printf("\n");
+					printf("                                                                                                       ZZZZZZZZZZ                                                         \n");
+					printf("                                                             Yes                                       Z   No   Z                                                         \n");
+					printf("                                                                                                       ZZZZZZZZZZ                                                         \n");
+
+
+					return_n = 2;
+
+					break;
 
 				}
-
-				else if (key1 == 13) { //enter
-					return return_n;
-				}
-
 
 			}
+
+			else if (key1 == 13) { //enter
+				return return_n;
+			}
+
+
 		}
+	}
 
 	return return_n;
 
