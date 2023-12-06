@@ -105,11 +105,12 @@ void main_menu() {
 	printf("■■■■\n");
 	printf("■■■\n");
 	printf("■■\n");
+	int num = 3;
 
 	while (1) //키보드 움직임
 	{
 		int key;
-		int num = 3;
+		
 		if (_kbhit())
 		{
 			key = _getch();
