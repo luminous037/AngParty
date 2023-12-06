@@ -412,7 +412,7 @@ void scorescreen() {
 
 	gotoxy(42, 29);
 
-	printf("               < Press ESC to exit >");
+	printf("               < Press ESC to exit ..>");
 
 	printf("\n");
 	printf("\n");
@@ -420,7 +420,7 @@ void scorescreen() {
 	printf("                                                                                        ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ \n");
 	printf("                                                                                        Z                                             Z \n");
 	printf("                                                                                        Z                                             Z \n");
-	printf("                                                                                        Z                     %d                     Z \n",sum);
+	printf("                                                                                        Z                                             Z \n");
 	printf("                                                                                        Z                                             Z \n");
 	printf("                                                                                        Z                                             Z \n");
 	printf("                                                                                        ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ \n");
@@ -438,6 +438,10 @@ void scorescreen() {
 	printf("                                                                                             Z   ZZZZ                     ZZZZ   ZZ     \n");
 	printf("                                                                                              ZZ                                ZZ      \n");
 	printf("                                                                                               ZZ                              ZZ       \n");
+
+	gotoxy(39, 35);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+	printf("%d", sum);
 	while (1) {
 		char ch = _getch();
 		if (ch == ESC) {
