@@ -45,6 +45,9 @@ void PrintWait() {
 	printf("                                                        ZZ                                        ZZZ                    ZZ               Z                          Z            \n");
 	printf("                                                         ZZZZZZZZZZZZ                       ZZZZZZZ                       ZZ              Z           ZZZZZZZ      ZZ             \n");
 	printf("                                                                     ZZZZZZZZZZZZZZZZZZZZZZZZZ                             ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ      ZZZZZZ               \n");
+	printf("                                                                                                                                                                                  \n");
+	printf("                                                                                                                                                                                  \n");
+
 }
 
 void PrintDrum2() {
@@ -395,7 +398,7 @@ int follow() {
 	int life = 1;
 	Play_Music();
 	Showbit();
-	Sleep(7000);
+	Sleep(5000);
 
 	return 0;
 }
@@ -423,7 +426,11 @@ int followmeGame() {
 	PrintWait();
 
 	tuto();
+	gotoxy(0, 36);
+	printf("                                                                                                                                                                                  \n");
+	printf("                                                                                                                                                                                  \n");
 	follow();
+
 	while (1) {
 		if (_kbhit()) {
 			_getch();
