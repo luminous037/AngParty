@@ -10,7 +10,6 @@
 #include"Gotoxy.h"
 
 
-
 #pragma comment(lib,"winmm.lib")
 
 #define width 230
