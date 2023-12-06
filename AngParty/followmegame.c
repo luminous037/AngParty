@@ -301,7 +301,7 @@ int route1() { //4박자
 	if (_kbhit()) {
 		_getch();
 	}
-	FILE* RIGHT = fopen("앙냥이.txt", "r");
+	FILE* RIGHT = fopen("yourturn.txt", "r");
 	int x = 30;  // X 좌표
 	int y = 20;
 	gotoxy(x, y);
@@ -355,7 +355,7 @@ int route2() { //5박자
 	if (_kbhit()) {
 		_getch();
 	}
-	FILE* RIGHT = fopen("앙냥이.txt", "r");
+	FILE* RIGHT = fopen("yourturn.txt", "r");
 	int x = 30;  // X 좌표
 	int y = 20;
 	gotoxy(x, y);
