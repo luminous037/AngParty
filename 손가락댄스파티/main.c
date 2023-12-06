@@ -41,7 +41,7 @@ int main() {
     CursorView(0);
     // cls(handle);
 
-    PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC | SND_LOOP);
+    PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC);
 
     print_frame(handle); //frame 출력
 
@@ -57,6 +57,7 @@ int main() {
 
     while (1)
     {
+       
         int point = 0;
 
         move_location(); // 위치 이동
@@ -85,6 +86,19 @@ void print_frame(HANDLE handle)
 {
     int i;
     COORD pos;
+    FILE* TITLE = fopen("LetsDance.txt", "r"); // 파일 열기
+    int x = 80;
+    int y = 0;
+    gotoxy(x, y);
+    char buffer[256];
+    for (int i = 0; i < 10; i++) {
+        fgets(buffer, sizeof(buffer), TITLE);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+        printf("%s", buffer);
+        y++;  // 다음 줄로 이동
+        gotoxy(x, y);
+    }
+    fclose(TITLE);
 
     // 틀의 시작 위치 지정
     pos.X = 0;
@@ -211,7 +225,7 @@ int get_point(HANDLE handle)
         char buffer[256];
         for (int i = 0; i < Height; i++) {
             fgets(buffer, sizeof(buffer), LEFT);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -220,12 +234,12 @@ int get_point(HANDLE handle)
 
         if (frame[58][0] == 1 || frame[59][0] == 1)
         {
-            point += 30;
+            point += 10;
         
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if(frame[57][0] == 1) point += 10;
+        else if(frame[57][0] == 1) point += 5;
     }
 
 
@@ -238,7 +252,7 @@ int get_point(HANDLE handle)
         char buffer[256];
         for (int i = 0; i < Height; i++) {
             fgets(buffer, sizeof(buffer), DOWN);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -247,12 +261,12 @@ int get_point(HANDLE handle)
 
         if (frame[58][1] == 1 || frame[59][1] == 1)
         {
-            point += 30;
+            point += 10;
   
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][1] == 1)point += 10;
+        else if (frame[57][1] == 1)point += 5;
     }
     else if (GetAsyncKeyState(VK_UP) & 0x8000)
     {
@@ -272,12 +286,12 @@ int get_point(HANDLE handle)
 
         if (frame[58][2] == 1 || frame[59][2] == 1)
         {
-            point += 30;
+            point += 10;
  
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][2] == 1)point += 10;
+        else if (frame[57][2] == 1)point += 5;
     }
 
 
@@ -290,7 +304,7 @@ int get_point(HANDLE handle)
         char buffer[256];
         for(int i=0; i<Height; i++)  {
             fgets(buffer, sizeof(buffer), RIGHT);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -299,12 +313,12 @@ int get_point(HANDLE handle)
 
         if (frame[58][3] == 1 || frame[59][3] == 1)
         {
-            point += 30;
+            point += 10;
      
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if (frame[57][3] == 1) point += 10;
+        else if (frame[57][3] == 1) point += 5;
     }
 
     // 판정 부분에 해당하는 노트를 사용자가 정확하게 눌렀다는 의미(shape값이 1), display_line호출
@@ -321,7 +335,7 @@ void display_total_point(HANDLE handle, int total_point)
     COORD pos;
 
     pos.X = 200;
-    pos.Y = 10;
+    pos.Y = 58;
 
     SetConsoleCursorPosition(handle, pos);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
