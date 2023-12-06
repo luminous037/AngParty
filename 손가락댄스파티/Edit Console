@@ -1,9 +1,0 @@
-#include <stdio.h>
-#include <Windows.h>
-
-//콘솔창 크기 변경, col = 가로, lines = 세로
-system("mode con:cols=100 lines=10");
-//콘솔창 색상 변경
-system("color 42"); //(color 바꿀 숫자번호)
-//콘솔창 폰트 색깔 변경
-SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
