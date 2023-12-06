@@ -10,12 +10,10 @@
 #include"Gotoxy.h"
 
 
-
 #pragma comment(lib,"winmm.lib")
 
 #define width 230
 #define height 75
-#define ESC 27
 
 
 
@@ -61,11 +59,18 @@ void SetScreen() {
 
 void clearInputBuffer() {
     int ch;
-    while ((ch = _getchar()) != '\n' && ch != EOF);
+    while ((ch = getchar()) != '\n' && ch != EOF);
+}
+
+void fullscreen() {
+    SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
 }
 
 int main() {
-    int fin;
+
+    fullscreen();
+
+
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -77,7 +82,12 @@ int main() {
     SetScreen();
 
     main_start();//메인화면
+
+ 
     while (1) {
+        if (_kbhit()) {
+            _getch();
+        }
         int n = main_menu();
         if (n == 1) {
             PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_ASYNC);
@@ -87,11 +97,26 @@ int main() {
             Sleep(1300);
             return 0;
         }
+
         else if (n == 2) main();
-        else if (n == 3) Ang1();
-        //else if (n == 4) Ang2();
+
+        else if (n == 3) {
+            gotoxy(0, 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+            SetScreen();
+            followmeGame();
+        }
+
+        else if (n == 4) {
+
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+            gotoxy(0, 0);
+            SetScreen();
+            gotoxy(0, 1);
+            printf("앙냥이의 손가락파티를 선택하셨네요?");
+        }
     }
 
-    // return 0;
+    return 0;
 
 }
