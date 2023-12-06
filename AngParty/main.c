@@ -17,6 +17,9 @@
 #define height 75
 #define ESC 27
 
+void fullscreen() {
+    SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
+}
 
 
 void setConsoleSize() {
@@ -65,6 +68,8 @@ void clearInputBuffer() {
 }
 
 int main() {
+
+    fullscreen();
     int fin;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
