@@ -15,7 +15,8 @@
 #define height 80
 
 #define MAGIC_KEY 224 
-#define SPACE 32 
+#define SPACE 32
+#define ENTER 13
 
 
 
@@ -108,6 +109,7 @@ void main_menu() {
 	while (1) //키보드 움직임
 	{
 		int key;
+		int num = 3;
 		if (_kbhit())
 		{
 			key = _getch();
@@ -120,11 +122,6 @@ void main_menu() {
 				SetScreen();
 				int n = exitscreen();
 				if (n == 1) {
-					PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_ASYNC);
-					gotoxy(0, 0);
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
-					SetScreen();
-					Sleep(1300);
 					return 1;
 				}
 				else if (n == 2) {
@@ -141,7 +138,7 @@ void main_menu() {
 				{
 				case 72: //상
 					PlaySound(TEXT("followmestart.wav"), NULL, SND_ASYNC | SND_LOOP);
-
+					num = 3;
 
 					gotoxy(17, 45);
 
@@ -172,6 +169,7 @@ void main_menu() {
 				case 80: //하
 
 					PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC | SND_LOOP);
+					num = 4;
 
 					gotoxy(17, 28);
 					printf("\n");
@@ -203,7 +201,9 @@ void main_menu() {
 
 
 			}
-
+			if (key == ENTER) {
+				return  num;
+			}
 		}
 	}
 }
