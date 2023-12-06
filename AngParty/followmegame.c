@@ -404,7 +404,7 @@ void tuto() {
 	PlaySound(TEXT("tuto.wav"), NULL, SND_ASYNC);  //노래 재생
 	//튜토리얼 인터페이스
 	printf("박자에 맞춰 앙냥이를 따라해보세요!!\n");
-	printf("준비가 되었다면 s를 입력해주세요\n");
+	printf("준비가 되었다면 s를 입력해주세요                                            [SPACE]                                                      [ENTER] \n");
 	while (1) {
 		if (_kbhit()) {
 			int k = _getch();
