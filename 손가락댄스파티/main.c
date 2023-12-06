@@ -12,14 +12,15 @@
 
 // 게임 창 크기 (가로 : 80, 세로 : 60)
 #define MaxLine 60 // 최대 행 수
-#define PlayingLine (MaxLine-3) 
+#define PlayingLine (MaxLine-1)
+#define max_ms 100
 
-int frame[MaxLine][220]; // 게임 할 떄 노트의 위치를 저장 frame[행][열]
+int frame[PlayingLine][6]; // 게임 할 떄 노트의 위치를 저장 frame[행][열]
 
 // void cls(HANDLE hConsole);
 void print_frame(HANDLE handle); // 게임의 기본 틀 출력
 void move_location(); // 노트가 이동하는 함수, 행을 한 칸 씩 감소
-void input_first_value(HANDLE handle); // 노트의 초기위치와 점수를 랜덤 생성
+void random_note(HANDLE handle); // 노트의 초기위치와 점수를 랜덤 생성
 void display_frame(HANDLE handle); // 현재 노트를 화면에 출력
 int get_point(HANDLE handle, int max_sec); // 키보드 입력을 받아 점수 계산
 void display_total_point(HANDLE handle, int total_porint); // 총 점수 화면에 출력
@@ -29,10 +30,9 @@ void display_line(HANDLE handle, int y, int shape); // 특정 행의 노트 상�
 int main() {
     system("mode con : cols = 220 lines = 80"); // 콘솔창 크기 설정(가로 : 220, 세로 : 80)
     int total_point = 0; //합산 점수
-    int max_ms = 1000; //노트가 한칸씩 이동하는데 걸리는 최대시간
     HANDLE handle;
     COORD pos;
-    
+
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     memset(frame, 0, 4 * PlayingLine * 4); //frame[0][0]을 모두 0으로 채워준다
@@ -43,9 +43,9 @@ int main() {
     PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC | SND_LOOP);
 
     print_frame(handle); //frame 출력
-    
+
     display_total_point(handle, 0); // 점수표시
-    
+
     srand(time(NULL));
 
     /*
@@ -60,7 +60,9 @@ int main() {
 
         move_location(); // 위치 이동
 
-        input_first_value(handle); // 입력
+       
+
+        random_note(handle); // 입력
 
         display_frame(handle); // 출력
 
@@ -97,47 +99,53 @@ void print_frame(HANDLE handle)
         "\u252F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2511"); //네번쨰 열
 
     // 세로줄 출력
-    for (i = 0; i < MaxLine ; i++)
+    for (i = 0; i < (MaxLine - 3); i++)
     {
         pos.X = 0;
         pos.Y = 1 + i;
         SetConsoleCursorPosition(handle, pos);
-        printf("│                                       │                                        │                                        │                                        │");
+        printf("\u2502                                        \u2502                                        \u2502                                        \u2502                                        \u2502");
     }
 
     // 틀의 아랫부분 출력
     pos.X = 0;
-    pos.Y = 57;
+    pos.Y = (MaxLine - 3) + 1;
     SetConsoleCursorPosition(handle, pos);
-    printf("┝――――――――――――――――――――――――――――――――――――――――┳――――――――――――――――――――――――――――――――――――――――┳――――――――――――――――――――――――――――――――――――――――┳――――――――――――――――――――――――――――――――――――――――┨");
+    printf("\
+\u251D\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+\u253F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+\u253F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+\u253F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2525");
 
     // 틀의 아래쪽 세로줄 출력
     for (i = 0; i < 2; i++)
     {
         pos.X = 0;
-        pos.Y = 58 + i;
+        pos.Y = (MaxLine - 3) + 2 + i;
         SetConsoleCursorPosition(handle, pos);
-        printf("\u2502                                        \u2502                                        \u2502                                        \u2502                                       \u2502");
+        printf("\u2502                                        \u2502                                        \u2502                                        \u2502                                        \u2502");
     }
 
     //틀의 마지막 세로줄 출력
     pos.X = 0;
-    pos.Y = 60;
+    pos.Y = (MaxLine - 3) + 4;
     SetConsoleCursorPosition(handle, pos);
     printf("\
-\u2515\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-\u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-\u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-\u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2519");
+\u2515\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+\u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+\u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+\u2537\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2519");
 }
+
 
 // 노트 이동시키는 함수, 각 행의 노트 상태를 한칸씩 위로
 void move_location()
 {
+    Sleep(100); //1000 =1초
     int x, y;
-    for (y = (PlayingLine - 1); y > 0; y--)
+    for (y = (PlayingLine - 1); y > 0 && y > (PlayingLine - 220); y--)
     {
-        for (x = 20; x >= 0; x--)
+        for (x = 5; x >= 0; x--)
         {
             // 이전 frame에서 출력된 것을 그다음 frame으로 옮김
             frame[y][x] = frame[y - 1][x]; // frame[행][열]
@@ -149,13 +157,13 @@ void move_location()
 }
 
 //노트의 초기위치와 점수를 랜덤 설정
-void input_first_value(HANDLE handle)
+void random_note(HANDLE handle)
 {
     // 4칸 중에 하나만 있어야 된다.
     int random, rnd_point;
 
     // 첫번째 행에 노트 랜덤 생성
-    random = rand() % 4; 
+    random = rand() % 4;
     frame[0][random] = 1; // 1이면 해당 열에 노트가 존재
 
     rnd_point = rand() % 9 + 1; // rnd = 1~10, rnd는 점수.
@@ -187,48 +195,56 @@ int get_point(HANDLE handle)
     int wait_ms = 0;
     char key = 0;
 
-    int curr_wait_ms;
-
-     // 왼쪽 화살표를 클릭할 경우
+    // 왼쪽 화살표를 클릭할 경우
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-     {
-         if (frame[70][0] == 1)
-         {
-             point += frame[23][4];
-             frame[70][5] = 1;
-         }
-     }
-     else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-     {
-         if (frame[70][1] == 1)
-         {
-             point += frame[23][4];
-             frame[70][5] = 1;
-         }
-     }
-     else if (GetAsyncKeyState(VK_UP) & 0x8000)
-     {
-         if (frame[70][2] == 1)
-         {
-             point += frame[23][4];
-             frame[70][5] = 1;
-         }
-     }
-     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-     {
-         if (frame[70][3] == 1)
-         {
-             point += frame[23][4];
-             frame[70][5] = 1;
-         }
-     }
-// 판정 부분에 해당하는 노트를 사용자가 정확하게 눌렀다는 의미(shape값이 1), display_line호출
-    if (frame[58][5] == 1)
+    {
+        if (frame[58][0] == 1 || frame[59][0] == 1)
+        {
+            point += 30;
+            frame[58][5] = 1;
+        }
+        else if(frame[57][0] == 1) point += 10;
+    }
+    else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+    {
+        if (frame[58][1] == 1 || frame[59][1] == 1)
+        {
+            point += 30;
+            frame[58][5] = 1;
+            frame[59][5] == 1;
+        }
+        else if (frame[57][1] == 1)point += 10;
+    }
+    else if (GetAsyncKeyState(VK_UP) & 0x8000)
+    {
+        if (frame[58][2] == 1 || frame[59][2] == 1)
+        {
+            point += 30;
+            frame[58][5] = 1;
+            frame[59][5] == 1;
+        }
+        else if (frame[57][2] == 1)point += 10;
+    }
+    else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+    {
+        if (frame[58][3] == 1 || frame[59][3] == 1)
+        {
+            point += 30;
+            frame[58][5] = 1;
+            frame[59][5] == 1;
+        }
+        else if (frame[57][3] == 1)point += 10;
+    }
+
+    // 판정 부분에 해당하는 노트를 사용자가 정확하게 눌렀다는 의미(shape값이 1), display_line호출
+    if (frame[58][5] == 1 || frame[59][5] == 1) {
         display_line(handle, 58, frame[58][5]);
+        display_line(handle, 59, frame[59][5]);
+    }
     return point;
 }
 
-// 점수를 출력할 위치, 점수 계산
+// 점수를출력할 위치, 점수 계산
 void display_total_point(HANDLE handle, int total_point)
 {
     COORD pos;
@@ -238,20 +254,23 @@ void display_total_point(HANDLE handle, int total_point)
     SetConsoleCursorPosition(handle, pos);
     printf("point : %d", total_point);
 }
- 
-// y행의 노트를 출력 ( y : 현재 행의 인덱스, shape : 노트의 모양)
+
+// y행의 노트를 출력 
+//y : 현재 행 번호, shape : 노트의 모양(0이면 잘못누름, 1이면 올바르게 누름)
 void display_line(HANDLE handle, int y, int shape)
 {
-    int x; //x : 현재 열의 인덱스 (0 ~ 3)
+    int x; // x : 현재 열의 인덱스 (0 ~ 3)
     COORD pos;
 
     pos.X = 0; // 열의 시작 위치를 설정
 
-    // 현재 행에 대한 출력 위치 계산
-    if (y > (PlayingLine - 1 - 2))  // 현재 행이 틀의 아랫부분에 위치하면 두칸 더 아래로 이동해 출력
-        pos.Y = y + 1 + 1;
-    else  // 그렇지 않으면 현재 행의 위치로 출력
-        pos.Y = y + 1;
+    // 노트 출력할 y값 정하기
+    if (y > (PlayingLine -3))  // 정답 칸으로 y좌표 이동
+        pos.Y = y + 2;
+    else {
+        pos.Y = y + 1; // 노트가 내려오는 칸 y좌표 이동
+    }
+  
 
     SetConsoleCursorPosition(handle, pos); //콘솔창 커서의 위치를 'pos'로 이동
 
@@ -289,11 +308,12 @@ void display_line(HANDLE handle, int y, int shape)
             printf("                                  "); // 화살표 출력후 공백 출력해 열 정렬
         }
 
-        if (x < 3)
+        if (x < 3) // 노트다음 필수적으로 출력되는
             printf("    "); //마지막 열 전까지 추가로 공백을 출력하여 열 간격 조정
+
         else
         {
-            printf("    \u2502    %d\n", frame[y][4]);  // 마지막 열에서는 세로줄 출력, frame[y][4]점수 출력
+            printf("    \u2502    \n");  // 마지막 열에서는 세로줄 출력, frame[y][4]점수 출력
         }
     }
     fflush(stdout);
