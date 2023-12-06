@@ -439,7 +439,7 @@ void scorescreen() {
 	printf("                                                                                              ZZ                                ZZ      \n");
 	printf("                                                                                               ZZ                              ZZ       \n");
 
-	gotoxy(39, 35);
+	gotoxy(55, 35);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	printf("%d", sum);
 	while (1) {
