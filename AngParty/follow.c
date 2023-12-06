@@ -10,6 +10,7 @@
 #define SPACE 32 //스페이스 키 값
 #define ENTER 13//엔터 키 값
 #define ESC 27 //esc 값
+#define S 115 //S값
 
 void PrintWait() {
 	gotoxy(0, 3);
@@ -258,9 +259,6 @@ int route1() { //4박자
 
 	while (1) {
 		if (_kbhit()) {
-			if (_getch() == ESC) {
-				main();
-			}
 			_getch();
 		}
 		num = rand() % 2; // 북 or 챙
@@ -370,18 +368,25 @@ int follow() {
 void tuto() {
 	PlaySound(TEXT("tuto.wav"), NULL, SND_ASYNC);  //노래 재생
 	//튜토리얼 인터페이스
+	 //Enter space 설명
 	printf("박자에 맞춰 앙냥이를 따라해보세요!!\n");
-	printf("준비가 되었다면 esc를 입력해주세요\n");
+	printf("준비가 되었다면 s를 입력해주세요\n");
 	while (1) {
 		if (_kbhit()) {
 			int k = _getch();
-			if (k == ESC) break;
+			if (k == S) {
+				//Space ENter 부분 공백으로 지우기
+				break;
+			}
 		}
 	}
 	return;
 }
 
 int Ang1() {
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(0, 0);
 	sum = 0;
 	QueryPerformanceFrequency(&frequency);
 	SetScreen();
