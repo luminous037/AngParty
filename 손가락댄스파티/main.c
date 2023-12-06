@@ -15,9 +15,10 @@
 #define PlayingLine (MaxLine-1)
 #define max_ms 100
 
-int frame[PlayingLine][6]; // 게임 할 떄 노트의 위치를 저장 frame[행][열]
+int frame[100][6]; // 게임 할 떄 노트의 위치를 저장 
 
 // void cls(HANDLE hConsole);
+void character(HANDLE handle);
 void print_frame(HANDLE handle); // 게임의 기본 틀 출력
 void move_location(); // 노트가 이동하는 함수, 행을 한 칸 씩 감소
 void random_note(HANDLE handle); // 노트의 초기위치와 점수를 랜덤 생성
@@ -37,12 +38,14 @@ int main() {
 
     memset(frame, 0, 4 * PlayingLine * 4); //frame[0][0]을 모두 0으로 채워준다
 
-    //CursorView(1);
+    CursorView(0);
     // cls(handle);
 
     PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC | SND_LOOP);
 
     print_frame(handle); //frame 출력
+
+    character(handle);
 
     display_total_point(handle, 0); // 점수표시
 
@@ -59,8 +62,6 @@ int main() {
         int point = 0;
 
         move_location(); // 위치 이동
-
-       
 
         random_note(handle); // 입력
 
@@ -80,6 +81,26 @@ int main() {
     SetConsoleCursorPosition(handle, pos);
 
     return 0;
+}
+void character(HANDLE handle) {
+
+    FILE* LEFT = fopen("LeftAng.txt", "r"); // 파일 열기
+
+    // 파일 내용을 읽어서 콘솔에 출력
+    int x = 90;  // X 좌표
+    int y =20;   // Y 좌표
+
+    gotoxy(x, y);
+
+    char buffer[256];
+    while (fgets(buffer, sizeof(buffer), LEFT) != NULL) {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+        printf("%s", buffer);
+        y++;  // 다음 줄로 이동
+        gotoxy(x, y);
+    }
+
+    fclose(LEFT); // 파일 닫기
 }
 
 void print_frame(HANDLE handle)
@@ -163,13 +184,15 @@ void random_note(HANDLE handle)
     int random, rnd_point;
 
     // 첫번째 행에 노트 랜덤 생성
-    random = rand() % 4;
-    frame[0][random] = 1; // 1이면 해당 열에 노트가 존재
+    if (rand() % 5 == 2) {
+        random = rand() % 4;
+        frame[0][random] = 1; // 1이면 해당 열에 노트가 존재
 
-    rnd_point = rand() % 9 + 1; // rnd = 1~10, rnd는 점수.
-    frame[0][4] = rnd_point; // 점수
+        rnd_point = rand() % 9 + 1; // rnd = 1~10, rnd는 점수.
+        frame[0][4] = rnd_point; // 점수
 
-    frame[0][5] = 0; // shape값 초기화
+        frame[0][5] = 0; // shape값 초기화
+    }
 }
 
 // 현재 노트 상태를 기준으로 display_line을 호출
@@ -201,7 +224,9 @@ int get_point(HANDLE handle)
         if (frame[58][0] == 1 || frame[59][0] == 1)
         {
             point += 30;
+        
             frame[58][5] = 1;
+            frame[59][5] = 1;
         }
         else if(frame[57][0] == 1) point += 10;
     }
@@ -210,8 +235,9 @@ int get_point(HANDLE handle)
         if (frame[58][1] == 1 || frame[59][1] == 1)
         {
             point += 30;
+  
             frame[58][5] = 1;
-            frame[59][5] == 1;
+            frame[59][5] = 1;
         }
         else if (frame[57][1] == 1)point += 10;
     }
@@ -220,8 +246,9 @@ int get_point(HANDLE handle)
         if (frame[58][2] == 1 || frame[59][2] == 1)
         {
             point += 30;
+ 
             frame[58][5] = 1;
-            frame[59][5] == 1;
+            frame[59][5] = 1;
         }
         else if (frame[57][2] == 1)point += 10;
     }
@@ -230,10 +257,11 @@ int get_point(HANDLE handle)
         if (frame[58][3] == 1 || frame[59][3] == 1)
         {
             point += 30;
+     
             frame[58][5] = 1;
-            frame[59][5] == 1;
+            frame[59][5] = 1;
         }
-        else if (frame[57][3] == 1)point += 10;
+        else if (frame[57][3] == 1) point += 10;
     }
 
     // 판정 부분에 해당하는 노트를 사용자가 정확하게 눌렀다는 의미(shape값이 1), display_line호출
@@ -251,7 +279,9 @@ void display_total_point(HANDLE handle, int total_point)
 
     pos.X = 200;
     pos.Y = 10;
+
     SetConsoleCursorPosition(handle, pos);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
     printf("point : %d", total_point);
 }
 
@@ -265,13 +295,12 @@ void display_line(HANDLE handle, int y, int shape)
     pos.X = 0; // 열의 시작 위치를 설정
 
     // 노트 출력할 y값 정하기
-    if (y > (PlayingLine -3))  // 정답 칸으로 y좌표 이동
+    if (y > (PlayingLine -1 -2))  // 정답 칸으로 y좌표 이동
         pos.Y = y + 2;
     else {
         pos.Y = y + 1; // 노트가 내려오는 칸 y좌표 이동
     }
-  
-
+ 
     SetConsoleCursorPosition(handle, pos); //콘솔창 커서의 위치를 'pos'로 이동
 
     // 열이 0~3까지 순회
@@ -301,8 +330,9 @@ void display_line(HANDLE handle, int y, int shape)
                     break;
                 }
             }
-            else //올바르게 쳤을 경우
+            else {//올바르게 쳤을 경우
                 printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+            }
         }
         else { // 노트가 없는 경우(0) 화살표 출력하지 않음
             printf("                                  "); // 화살표 출력후 공백 출력해 열 정렬
