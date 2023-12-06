@@ -4,7 +4,7 @@
 #include <time.h>
 #include <conio.h>
 #include <mmsystem.h>
-#include<string.h>
+#include <string.h>
 
 #pragma comment (lib, "winmm.lib") // PlaySound함수 이용하기 위해서
 
@@ -17,8 +17,8 @@
 
 int frame[100][6]; // 게임 할 떄 노트의 위치를 저장 
 
+
 // void cls(HANDLE hConsole);
-void character(HANDLE handle);
 void print_frame(HANDLE handle); // 게임의 기본 틀 출력
 void move_location(); // 노트가 이동하는 함수, 행을 한 칸 씩 감소
 void random_note(HANDLE handle); // 노트의 초기위치와 점수를 랜덤 생성
@@ -28,11 +28,19 @@ void display_total_point(HANDLE handle, int total_porint); // 총 점수 화면�
 void display_line(HANDLE handle, int y, int shape); // 특정 행의 노트 상태 화면에 출력
 
 
+unsigned _stdcall Thread_A(void* arg)
+{
+    Sleep(4000);
+    PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC);
+}
+
+LARGE_INTEGER f, e, timee;
 int main() {
     system("mode con : cols = 220 lines = 80"); // 콘솔창 크기 설정(가로 : 220, 세로 : 80)
     int total_point = 0; //합산 점수
     HANDLE handle;
     COORD pos;
+    QueryPerformanceFrequency(&f);
 
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -41,7 +49,8 @@ int main() {
     CursorView(0);
     // cls(handle);
 
-    PlaySound(TEXT("finger_party.wav"), NULL, SND_ASYNC);
+    QueryPerformanceCounter(&timee);
+    _beginthreadex(NULL, 0, Thread_A, 0, 0, NULL);
 
     print_frame(handle); //frame 출력
 
@@ -49,15 +58,13 @@ int main() {
 
     srand(time(NULL));
 
-    /*
-    <전체흐름>
-    "노트를 이동 - > 전체화면(틀과 노트) 출력 -> 키보드 입력 및 point계산" 하는 순서
-    기본 틀은 5칸, 이것을 2차원 배열로 생각하면 frame[row][col].(row : 28칸, col : 5칸)
-    */
-
     while (1)
     {
-       
+        QueryPerformanceCounter(&e);
+        if ((e.QuadPart - timee.QuadPart) / f.QuadPart >= 61) {
+            system("cls");
+            break;
+        }
         int point = 0;
 
         move_location(); // 위치 이동
@@ -235,19 +242,19 @@ int get_point(HANDLE handle)
         if (frame[58][0] == 1 || frame[59][0] == 1)
         {
             point += 10;
-        
+
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
-        else if(frame[57][0] == 1) point += 5;
+        else if (frame[57][0] == 1) point += 5;
     }
 
 
     else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
     {
         FILE* DOWN = fopen("DownAng.txt", "r"); // 파일 열기
-        int x = 90;  
-        int y = 20;   
+        int x = 90;
+        int y = 20;
         gotoxy(x, y);
         char buffer[256];
         for (int i = 0; i < Height; i++) {
@@ -262,7 +269,7 @@ int get_point(HANDLE handle)
         if (frame[58][1] == 1 || frame[59][1] == 1)
         {
             point += 10;
-  
+
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
@@ -287,7 +294,7 @@ int get_point(HANDLE handle)
         if (frame[58][2] == 1 || frame[59][2] == 1)
         {
             point += 10;
- 
+
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
@@ -302,7 +309,7 @@ int get_point(HANDLE handle)
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        for(int i=0; i<Height; i++)  {
+        for (int i = 0; i < Height; i++) {
             fgets(buffer, sizeof(buffer), RIGHT);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
             printf("%s", buffer);
@@ -314,7 +321,7 @@ int get_point(HANDLE handle)
         if (frame[58][3] == 1 || frame[59][3] == 1)
         {
             point += 10;
-     
+
             frame[58][5] = 1;
             frame[59][5] = 1;
         }
@@ -352,12 +359,12 @@ void display_line(HANDLE handle, int y, int shape)
     pos.X = 0; // 열의 시작 위치를 설정
 
     // 노트 출력할 y값 정하기
-    if (y > (PlayingLine -1 -2))  // 정답 칸으로 y좌표 이동
+    if (y > (PlayingLine - 1 - 2))  // 정답 칸으로 y좌표 이동
         pos.Y = y + 2;
     else {
-        pos.Y = y+1; // 노트가 내려오는 칸 y좌표 이동
+        pos.Y = y + 1; // 노트가 내려오는 칸 y좌표 이동
     }
- 
+
     SetConsoleCursorPosition(handle, pos); //콘솔창 커서의 위치를 'pos'로 이동
 
     // 열이 0~3까지 순회
