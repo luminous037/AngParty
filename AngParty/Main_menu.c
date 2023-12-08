@@ -16,10 +16,12 @@
 
 #define MAGIC_KEY 224 
 #define SPACE 32 
+#define ENTER 13
+#define ESC 27
 
 
 
-void main_menu() {
+int main_menu() {
 
 	gotoxy(2, 2);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -108,29 +110,25 @@ void main_menu() {
 	while (1) //키보드 움직임
 	{
 		int key;
+		int num=3;
 		if (_kbhit())
 		{
 			key = _getch();
 
-			if (key == 27) {
+			if (key == ESC) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 				gotoxy(0, 0);
-
+				
 
 				SetScreen();
-				int n = exitscreen();
+				int n=exitscreen();
 				if (n == 1) {
-					PlaySound(TEXT("gameover.wav"), NULL, SND_ASYNC | SND_ASYNC);
-					gotoxy(0, 0);
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
-					SetScreen();
-					Sleep(1300);
 					return 1;
 				}
-				else if (n == 2) {
+				else if(n==2){
 					gotoxy(0, 0);
 					return 2;
-				}
+			}
 
 			}
 
@@ -141,7 +139,7 @@ void main_menu() {
 				{
 				case 72: //상
 					PlaySound(TEXT("followmestart.wav"), NULL, SND_ASYNC | SND_LOOP);
-
+					num = 3;
 
 					gotoxy(17, 45);
 
@@ -172,7 +170,8 @@ void main_menu() {
 				case 80: //하
 
 					PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC | SND_LOOP);
-
+					num = 4;
+	
 					gotoxy(17, 28);
 					printf("\n");
 					printf("  \n");
@@ -201,9 +200,10 @@ void main_menu() {
 					break;
 				}
 
-
 			}
-
+			if (key == ENTER) {
+				return num;
+			}
 		}
 	}
 }
