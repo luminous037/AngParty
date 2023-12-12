@@ -27,14 +27,19 @@ void display_total_point(HANDLE handle, int total_porint); // 총 점수 화면�
 void display_line(HANDLE handle, int y, int shape); // 특정 행의 노트 상태 화면에 출력
 
 
+
+
 unsigned _stdcall Thread_A(void* arg)
 {
     Sleep(4000);
     PlaySound(TEXT("fingerparty.wav"), NULL, SND_ASYNC);
 }
 
+
 LARGE_INTEGER f, e, timee;
+
 int danceparty() {
+    PlaySound(NULL,NULL, SND_PURGE);
     system("mode con : cols = 220 lines = 80"); // 콘솔창 크기 설정(가로 : 220, 세로 : 80)
     int total_point = 0; //합산 점수
     HANDLE handle;
@@ -57,14 +62,19 @@ int danceparty() {
 
     srand(time(NULL));
 
+    int point = 0;
+
     while (1)
     {
+
         QueryPerformanceCounter(&e);
         if ((e.QuadPart - timee.QuadPart) / f.QuadPart >= 61) {
             system("cls");
+
             break;
+            
         }
-        int point = 0;
+
 
         move_location(); // 위치 이동
 
@@ -84,9 +94,11 @@ int danceparty() {
     pos.X = 1;
     pos.Y = 30;
     SetConsoleCursorPosition(handle, pos);
+    scorescreen(total_point);
 
     return 0;
 }
+
 
 void print_frame(HANDLE handle)
 {
