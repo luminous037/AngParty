@@ -56,8 +56,6 @@ int exitscreen() {
 	
 	int key1;
 
-	
-
 		while (1) //키보드 움직임
 		{
 
@@ -65,8 +63,9 @@ int exitscreen() {
 			{
 				key1 = _getch();
 
+				//if (key1 == 13) return return_n;
 
-				if (key1 == 224 || key1 == 0)
+				 if (key1 == 224 || key1 == 0)
 				{
 					key1 = _getch();
 
@@ -84,7 +83,6 @@ int exitscreen() {
 						printf("                                                          ZZZZZZZZZ                                                                                                       \n");
 
 						return_n = 1;
-
 						break;
 
 					case 77: //riight
@@ -102,18 +100,15 @@ int exitscreen() {
 
 
 						return_n = 2;
-
 						break;
 
 					}
 
 				}
 
-				else if (key1 == 13) { //enter
-					return return_n;
-				}
-
-
+				 else if (key1 == 13) { //enter
+					 return return_n;
+				 }
 			}
 		}
 

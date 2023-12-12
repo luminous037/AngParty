@@ -14,7 +14,11 @@
 
 #define width 230
 #define height 75
+#define ESC 27
 
+void fullscreen() {
+    SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
+}
 
 
 void setConsoleSize() {
@@ -70,7 +74,6 @@ int main() {
     
     fullscreen();
   
-
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -82,7 +85,9 @@ int main() {
     SetScreen();
 
     main_start();//메인화면
-
+  
+    while (1) {
+     
     int n= main_menu();
 
     if (n == 1) return 0;
