@@ -93,6 +93,7 @@ void print_frame(HANDLE handle)
 {
     int i;
     COORD pos;
+
     FILE* TITLE = fopen("LetsDance.txt", "r"); // 파일 열기
     int x = 80;
     int y = 0;
@@ -106,6 +107,7 @@ void print_frame(HANDLE handle)
         gotoxy(x, y);
     }
     fclose(TITLE);
+
 
     // 틀의 시작 위치 지정
     pos.X = 0;
@@ -226,13 +228,14 @@ int get_point(HANDLE handle)
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
     {
         FILE* LEFT = fopen("LeftAng.txt", "r"); // 파일 열기
-        int x = 90;
+
+        int x = 100;
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        for (int i = 0; i < Height; i++) {
-            fgets(buffer, sizeof(buffer), LEFT);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+        while (fgets(buffer, sizeof(buffer), LEFT) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -253,13 +256,14 @@ int get_point(HANDLE handle)
     else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
     {
         FILE* DOWN = fopen("DownAng.txt", "r"); // 파일 열기
-        int x = 90;
-        int y = 20;
+
+        int x = 100;  
+        int y = 20;   
         gotoxy(x, y);
         char buffer[256];
-        for (int i = 0; i < Height; i++) {
-            fgets(buffer, sizeof(buffer), DOWN);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+        while (fgets(buffer, sizeof(buffer), DOWN) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
@@ -278,12 +282,13 @@ int get_point(HANDLE handle)
     else if (GetAsyncKeyState(VK_UP) & 0x8000)
     {
         FILE* UP = fopen("UpAng.txt", "r");
-        int x = 90;  // X 좌표
+
+        int x = 100;  // X 좌표
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        for (int i = 0; i < Height; i++) {
-            fgets(buffer, sizeof(buffer), UP);
+        while (fgets(buffer, sizeof(buffer), UP) != NULL) {
+
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
@@ -304,14 +309,17 @@ int get_point(HANDLE handle)
 
     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
     {
+
+        
         FILE* RIGHT = fopen("RightAng.txt", "r");
-        int x = 90;  // X 좌표
+        int x = 100;  // X 좌표
         int y = 20;
         gotoxy(x, y);
         char buffer[256];
-        for (int i = 0; i < Height; i++) {
-            fgets(buffer, sizeof(buffer), RIGHT);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+        while (fgets(buffer, sizeof(buffer), RIGHT) != NULL) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+
+
             printf("%s", buffer);
             y++;  // 다음 줄로 이동
             gotoxy(x, y);
