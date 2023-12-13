@@ -68,18 +68,7 @@ void fullscreen() {
 
 int main() {
 
-    fullscreen();
 
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-    PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
-
-    setConsoleSize();
-
-    CursorView(0);
-
-    SetScreen();
 
     main_start();//메인화면
 
@@ -95,10 +84,10 @@ int main() {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
             SetScreen();
             Sleep(1300);
-            return 0;
+            break;
         }
 
-        else if (n == 2) main();
+        else if (n == 2) main_start();
 
         else if (n == 3) {
             gotoxy(0, 0);
