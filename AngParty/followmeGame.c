@@ -131,7 +131,6 @@ void Play_Music() {
 
 
 int sum;
-int life = 1;
 int order[15]; //순서 저장
 LARGE_INTEGER frequency, end, t[15];
 char finalscore[1000];
@@ -148,14 +147,7 @@ int score(int score) //점수
 	else if (score == 3) {
 		gotoxy(50, 50);
 		printf("Miss..");
-		life--;
 	}
-
-	//생명이 '0'미만이 된 경우
-	//if (life < 0) {
-	//	printf("Game over\n");
-	//	return 0; //go Game over
-	//}
 
 	//점수출력
 	gotoxy(50, 53);
@@ -393,7 +385,7 @@ void Showbit() {
 	return;
 }
 
-void scorescreen() {
+void scorescreen(int sum) {
 
 	gotoxy(0, 0);
 	SetScreen();
@@ -442,13 +434,6 @@ void scorescreen() {
 	gotoxy(55, 35);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	printf("%d", sum);
-	while (1) {
-		char ch = _getch();
-		if (ch == ESC) {
-			return;
-		}
-	}
-
 	
 }
 
@@ -459,7 +444,7 @@ int follow() {
 	Showbit();
 	
 	Sleep(3000);
-	scorescreen();
+	scorescreen(sum);
 
 	return 0;
 }
@@ -495,10 +480,9 @@ int followmeGame() {
 	follow();
 
 	while (1) {
-		if (_kbhit()) {
-			_getch();
+		char ch = _getch();
+		if (ch == ESC) {
+			return;
 		}
-		else break;
 	}
-	return 0;
 }
