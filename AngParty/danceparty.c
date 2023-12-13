@@ -13,6 +13,7 @@
 #define MaxLine 60 // 최대 행 수
 #define PlayingLine (MaxLine-1)
 #define max_ms 100
+#define ESC 27 //esc 값
 
 int frame[100][6]; // 게임 할 떄 노트의 위치를 저장 
 
@@ -95,8 +96,13 @@ int danceparty() {
     pos.Y = 30;
     SetConsoleCursorPosition(handle, pos);
     scorescreen(total_point);
+    while (1) {
+        char ch = _getch();
+        if (ch == ESC) {
+            return;
+        }
+    }
 
-    return 0;
 }
 
 
