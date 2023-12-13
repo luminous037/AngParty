@@ -21,6 +21,19 @@
 
 void main_start() {
 
+    fullscreen();
+
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+    PlaySound(TEXT("mainbgm.wav"), NULL, SND_ASYNC | SND_LOOP);
+
+    setConsoleSize();
+
+    CursorView(0);
+
+    SetScreen();
+
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     gotoxy(2, 2);
     printf("\n");
